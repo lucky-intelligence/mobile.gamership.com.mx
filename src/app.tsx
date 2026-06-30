@@ -421,7 +421,6 @@ function PlansSection() {
             >
               ¡CONTRATA AHORA!
             </a>
-            <p className="text-[13px] font-semibold text-[#5518c1]">Gamership</p>
           </div>
         </motion.div>
 
