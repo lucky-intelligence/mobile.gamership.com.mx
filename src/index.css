@@ -42,3 +42,17 @@ body {
   outline-offset: 3px;
   border-radius: 4px;
 }
+
+/* EPIC card — animated gradient border */
+@keyframes epic-spin {
+  to { transform: rotate(360deg); }
+}
+.epic-border-spin {
+  position: absolute;
+  inset: -100%;
+  width: 300%;
+  height: 300%;
+  background: conic-gradient(from 0deg at 50% 50%, #5518c1 0%, #8224e3 20%, #50fbd2 50%, #8224e3 80%, #5518c1 100%);
+  animation: epic-spin 3s linear infinite;
+  pointer-events: none;
+}

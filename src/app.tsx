@@ -279,18 +279,12 @@ function HeroSection() {
    PLAN CARD
    ============================================================ */
 function PlanCard({ plan, index }: { plan: Plan; index: number }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="relative flex flex-col rounded-[25px] overflow-hidden bg-white transition-all duration-200 hover:shadow-xl hover:-translate-y-1"
-    >
+  const isEpic = plan.tier === 'EPIC'
+
+  const cardContent = (
+    <>
       <div className="px-6 pt-8 pb-6 bg-[#5518c1] rounded-t-[25px] text-center" style={{ fontFamily: 'var(--font-rubik)' }}>
-        <h2 className="text-[37px] font-semibold uppercase text-white leading-tight">
-          {plan.tier}
-        </h2>
+        <h2 className="text-[37px] font-semibold uppercase text-white leading-tight">{plan.tier}</h2>
         <div className="flex items-baseline justify-center gap-1">
           <span className="text-[37px] font-semibold text-white">${plan.price}</span>
           <span className="text-[14px] font-medium text-[#ffffff99]">MXN</span>
@@ -344,6 +338,25 @@ function PlanCard({ plan, index }: { plan: Plan; index: number }) {
           ¡CONTRATA AHORA!
         </a>
       </div>
+    </>
+  )
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      className={`relative rounded-[25px] overflow-hidden transition-all duration-200 hover:shadow-xl hover:-translate-y-1 ${isEpic ? 'p-[3px]' : 'flex flex-col bg-white'}`}
+    >
+      {isEpic ? (
+        <>
+          <div className="epic-border-spin" aria-hidden="true" />
+          <div className="relative flex flex-col rounded-[22px] overflow-hidden bg-white h-full">
+            {cardContent}
+          </div>
+        </>
+      ) : cardContent}
     </motion.div>
   )
 }
