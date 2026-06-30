@@ -154,13 +154,20 @@ function Navbar() {
         <button
           className="md:hidden p-2 cursor-pointer rounded-md hover:bg-[#f5f5ff] transition-colors duration-200"
           onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Menú"
+          aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
         >
-          <div className="space-y-1.5">
-            <span className="block h-0.5 w-6 bg-[#00010a]" />
-            <span className="block h-0.5 w-6 bg-[#00010a]" />
-            <span className="block h-0.5 w-6 bg-[#00010a]" />
-          </div>
+          {menuOpen ? (
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#5518c1]">
+              <path d="M18 6 6 18" />
+              <path d="M6 6l12 12" />
+            </svg>
+          ) : (
+            <div className="space-y-1.5">
+              <span className="block h-0.5 w-6 bg-[#00010a]" />
+              <span className="block h-0.5 w-6 bg-[#00010a]" />
+              <span className="block h-0.5 w-6 bg-[#00010a]" />
+            </div>
+          )}
         </button>
       </div>
 
