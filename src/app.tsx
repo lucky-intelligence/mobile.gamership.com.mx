@@ -1,5 +1,6 @@
 import { useState } from 'preact/hooks'
 import { motion } from 'motion/react'
+import { BorderBeam } from '@/components/ui/border-beam'
 
 /* ============================================================
    DESIGN TOKENS (mobile.gamership.com.mx)
@@ -347,15 +348,10 @@ function PlanCard({ plan, index }: { plan: Plan; index: number }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className={`relative rounded-[25px] overflow-hidden transition-all duration-200 hover:shadow-xl hover:-translate-y-1 ${isEpic ? 'p-[3px]' : 'flex flex-col bg-white'}`}
+      className={`transition-all duration-200 hover:-translate-y-1 ${isEpic ? 'rounded-[25px] hover:shadow-xl' : 'relative rounded-[25px] overflow-hidden flex flex-col bg-white hover:shadow-xl'}`}
     >
       {isEpic ? (
-        <>
-          <div className="epic-border-spin" aria-hidden="true" />
-          <div className="relative flex flex-col rounded-[22px] overflow-hidden bg-white h-full">
-            {cardContent}
-          </div>
-        </>
+        <BorderBeam duration={4}>{cardContent}</BorderBeam>
       ) : cardContent}
     </motion.div>
   )
