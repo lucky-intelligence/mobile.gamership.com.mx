@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+:root {
+  --font-manrope: 'Manrope', sans-serif;
+  --font-rubik: 'Rubik', sans-serif;
+
+  /* Design tokens — mobile.gamership.com.mx */
+  --color-primary: #5518c1;
+  --color-secondary: #8224e3;
+  --color-accent: #50fbd2;
+  --color-bg-light: #F8F9FD;
+  --color-bg-plans: #f5f5ff;
+  --color-footer: #06041C;
+  --color-text-main: #00010a;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-manrope);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Accessibility: respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus visible — keyboard navigation */
+:focus-visible {
+  outline: 2px solid #5518c1;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
