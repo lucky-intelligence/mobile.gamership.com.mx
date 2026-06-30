@@ -300,13 +300,12 @@ function PlanCard({ plan, index }: { plan: Plan; index: number }) {
 
       <div className="flex-1 px-6 py-6 space-y-4 text-center" style={{ fontFamily: 'var(--font-rubik)' }}>
         <div>
-          <p className="text-[28px] font-extrabold text-[#00010a]">{plan.freeGB}</p>
+          <p className="text-[42px] font-extrabold text-[#00010a]">{plan.freeGB}</p>
           <p className="text-[13px] text-[#555]">Navegación Libre</p>
           <p className="text-[13px] text-[#444] mt-1">
             <strong>{plan.sms}</strong> sms + <strong>{plan.minutes}</strong> Minutos de voz
           </p>
         </div>
-
         <div className="space-y-3 border-t border-[#f0f0f8] pt-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
