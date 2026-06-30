@@ -43,4 +43,3 @@ pnpm-lock.yaml
 # Embedded repos / worktrees (not part of this project)
 gamership-mobile/
 gamership-mobile.worktrees/
-README.md

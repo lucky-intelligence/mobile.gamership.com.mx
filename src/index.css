@@ -43,16 +43,43 @@ body {
   border-radius: 4px;
 }
 
-/* EPIC card — animated gradient border */
-@keyframes epic-spin {
+/* Border Beam */
+@keyframes beam-rotate {
   to { transform: rotate(360deg); }
 }
-.epic-border-spin {
+
+.border-beam-wrapper {
+  position: relative;
+  padding: 2px;
+  border-radius: 25px;
+  overflow: hidden;
+}
+
+.border-beam-wrapper::before {
+  content: '';
   position: absolute;
   inset: -100%;
   width: 300%;
   height: 300%;
-  background: conic-gradient(from 0deg at 50% 50%, #5518c1 0%, #8224e3 20%, #50fbd2 50%, #8224e3 80%, #5518c1 100%);
-  animation: epic-spin 3s linear infinite;
+  background: conic-gradient(
+    from 0deg at 50% 50%,
+    rgba(80, 251, 210, 0)   0deg,
+    rgba(80, 251, 210, 0) 300deg,
+    rgba(80, 251, 210, 1) 325deg,
+    rgba(130, 36, 227, 1) 345deg,
+    rgba(85,  24, 193, 0) 360deg
+  );
+  animation: beam-rotate calc(var(--beam-duration, 4) * 1s) linear infinite;
   pointer-events: none;
+}
+
+.border-beam-inner {
+  position: relative;
+  z-index: 1;
+  border-radius: 23px;
+  background: white;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
