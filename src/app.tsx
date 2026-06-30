@@ -216,7 +216,7 @@ function HeroSection() {
           transition={{ duration: 0.7, ease: 'easeOut' }}
         >
           <div className="space-y-1">
-            <h1 className="text-[18px] font-semibold text-[#5518c1] uppercase tracking-wide">
+            <h1 className="text-[18px] font-semibold text-[#5518c1] uppercase tracking-wide" style={{ fontFamily: 'var(--font-rubik)' }}>
               Telefonía Movil para gamers
             </h1>
             <h3 className="text-[52px] md:text-[68px] font-extrabold leading-tight text-[#1c1c1c]">
