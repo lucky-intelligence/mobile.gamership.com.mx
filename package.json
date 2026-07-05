@@ -1,5 +1,5 @@
 {
-  "name": "gamership-mobile-site",
+  "name": "gsm-ui",
   "version": "1.0.0",
   "private": true,
   "description": "Gamership Mobile landing page — clone de mobile.gamership.com.mx",
@@ -10,8 +10,18 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@aws-sdk/client-secrets-manager": "^3.1079.0",
+    "@lucky-intelligence/account-core": "^1.0.0",
+    "@lucky-intelligence/account-ui": "^1.2.6",
+    "@stripe/react-stripe-js": "^6.6.0",
+    "@stripe/stripe-js": "^9.8.0",
+    "i18next": "^26.3.3",
+    "i18next-browser-languagedetector": "^8.2.1",
+    "lucide-preact": "^1.21.0",
     "motion": "^12.0.0",
-    "preact": "^10.26.0"
+    "preact": "^10.26.0",
+    "preact-iso": "^2.12.0",
+    "react-i18next": "^17.0.8"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.3.2",

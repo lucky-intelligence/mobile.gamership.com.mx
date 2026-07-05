@@ -1,5 +1,15 @@
 @import "tailwindcss";
 
+/* Scan the installed account-ui package (its built dist contains the class
+ * strings) so Tailwind generates the utilities the dashboard / CRT / phone
+ * flows use. node_modules isn't scanned by default. */
+@source "../node_modules/@lucky-intelligence/account-ui/dist";
+
+/* Dark mode = class strategy (not prefers-color-scheme), so the shared account
+ * dashboard's in-app Sun/Moon toggle controls the theme by adding a `dark`
+ * class to its root. Default (no class) is light regardless of the OS. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   --font-manrope: 'Manrope', sans-serif;
   --font-rubik: 'Rubik', sans-serif;
@@ -12,6 +22,12 @@
   --color-bg-plans: #f5f5ff;
   --color-footer: #06041C;
   --color-text-main: #00010a;
+
+  /* Accent consumed by @lucky-intelligence/account-ui components via
+   * var(--gs-accent); point it at the site's primary. Defined on :root so it
+   * also reaches the Stripe modal rendered on <body>. */
+  --gs-accent: var(--color-primary);
+  --gs-accent-strong: color-mix(in srgb, var(--color-primary) 78%, #000);
 }
 
 *,
