@@ -14,7 +14,7 @@
   "dependencies": {
     "@aws-sdk/client-secrets-manager": "^3.1079.0",
     "@lucky-intelligence/account-core": "^1.0.0",
-    "@lucky-intelligence/account-ui": "^1.2.7",
+    "@lucky-intelligence/account-ui": "^1.2.8",
     "@stripe/react-stripe-js": "^6.6.0",
     "@stripe/stripe-js": "^9.8.0",
     "i18next": "^26.3.3",
