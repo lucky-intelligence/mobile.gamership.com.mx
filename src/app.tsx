@@ -15,10 +15,10 @@ import { BorderBeam } from '@/components/ui/border-beam'
    ============================================================ */
 
 const NAV_LINKS = [
-  { label: 'Paquetes', href: '#paquetes' },
-  { label: 'Recargas', href: '#recargas' },
-  { label: 'Portabilidad', href: '#portabilidad' },
-  { label: 'Atención a Cliente', href: '#atencion' },
+  { label: 'Paquetes', href: '/#paquetes' },
+  { label: 'Recargas', href: '/recargas/' },
+  { label: 'Portabilidad', href: '/#portabilidad' },
+  { label: 'Atención a Cliente', href: '/#atencion' },
 ]
 
 type Plan = {
@@ -89,7 +89,7 @@ const FOOTER_LINKS = {
     { label: 'Gamership Afiliados', href: '/afiliados/' },
   ],
   compania: [
-    { label: 'Paquetes', href: '#paquetes' },
+    { label: 'Paquetes', href: '/#paquetes' },
     { label: 'Recargas', href: '/recargas/' },
     { label: 'FAQ', href: '/explore' },
     { label: 'Portabilidad', href: '/telefonia/portabilidad/' },
@@ -108,7 +108,7 @@ const SOCIAL_LINKS = [
 /* ============================================================
    NAVBAR
    ============================================================ */
-function Navbar() {
+export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
 
   return (
@@ -348,11 +348,15 @@ function PlanCard({ plan, index }: { plan: Plan; index: number }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className={`transition-all duration-200 hover:-translate-y-1 ${isEpic ? 'rounded-[25px] hover:shadow-xl' : 'relative rounded-[25px] overflow-hidden flex flex-col bg-white hover:shadow-xl'}`}
+      className="transition-all duration-200 hover:-translate-y-1"
     >
       {isEpic ? (
-        <BorderBeam duration={4}>{cardContent}</BorderBeam>
-      ) : cardContent}
+        <BorderBeam duration={3}>{cardContent}</BorderBeam>
+      ) : (
+        <div className="relative rounded-[25px] overflow-hidden flex flex-col bg-white hover:shadow-xl h-full">
+          {cardContent}
+        </div>
+      )}
     </motion.div>
   )
 }
@@ -392,7 +396,7 @@ function PlansSection() {
             <p className="text-[37px] font-semibold uppercase leading-tight">BASIC</p>
             <div className="flex items-baseline gap-1 mt-1">
               <span className="text-[18px] font-semibold">$</span>
-              <span className="text-[48px] font-semibold leading-none">129</span>
+              <span className="text-[48px] font-semibold leading-none">150</span>
               <span className="text-[18px] font-semibold ml-1">MXN</span>
             </div>
             <p className="text-[15px] font-bold mt-2">Vigencia 30 Días</p>
@@ -504,7 +508,7 @@ function BenefitsSection() {
 /* ============================================================
    FOOTER
    ============================================================ */
-function Footer() {
+export function Footer() {
   return (
     <footer className="bg-[#06041C] text-white py-16" style={{ fontFamily: 'var(--font-manrope)' }}>
       <div className="mx-auto max-w-[1280px] px-6">
@@ -605,7 +609,7 @@ function Footer() {
 /* ============================================================
    REGISTER BANNER
    ============================================================ */
-function RegisterBanner() {
+export function RegisterBanner() {
   const [visible, setVisible] = useState(true)
 
   if (!visible) return null

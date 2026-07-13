@@ -27,10 +27,14 @@ gamership-mobile-site/
 ├── public/
 │   └── gm-site/          # assets estáticos (imágenes, iconos, logo)
 ├── src/
-│   ├── app.tsx            # componente raíz (toda la landing page)
-│   ├── main.tsx           # punto de entrada — render(<App />)
+│   ├── app.tsx            # home: App + Navbar/Footer/RegisterBanner (exportados, compartidos entre páginas)
+│   ├── main.tsx           # punto de entrada de home — render(<App />)
+│   ├── recargas.tsx       # página /recargas/ — RecargasPage
+│   ├── recargas-main.tsx  # punto de entrada de /recargas/ — render(<RecargasPage />)
 │   └── index.css          # Tailwind v4 + CSS variables de diseño
-├── index.html             # HTML shell con Google Fonts
+├── index.html             # HTML shell de home
+├── recargas/
+│   └── index.html         # HTML shell de /recargas/ (multi-page build, ver vite.config.ts)
 ├── vite.config.ts
 ├── tsconfig.json
 └── tsconfig.node.json
@@ -38,17 +42,30 @@ gamership-mobile-site/
 
 ## Arquitectura del componente
 
-`src/app.tsx` contiene todos los componentes en un solo archivo:
+Sitio multi-página (Vite MPA): cada página tiene su propio HTML shell + entry point, y comparte `Navbar`/`Footer`/`RegisterBanner` (exportados desde `src/app.tsx`).
+
+`src/app.tsx` — página home:
 
 | Componente | Descripción |
 |---|---|
-| `Navbar` | Header sticky con menú desktop + hamburger mobile |
+| `Navbar` | Header sticky con menú desktop + hamburger mobile (compartido) |
 | `HeroSection` | Hero con foto del equipo, glow morado y íconos flotantes |
 | `PlanCard` | Tarjeta reutilizable para paquetes COMMON/RARE/EPIC/LEGENDARY |
 | `PlansSection` | Grid de plan cards + tarjeta BASIC horizontal |
 | `BenefitsSection` | Grid 3 columnas con beneficios |
-| `Footer` | Footer oscuro con links, newsletter y redes sociales |
-| `App` | Root — monta todos los componentes |
+| `Footer` | Footer oscuro con links, newsletter y redes sociales (compartido) |
+| `RegisterBanner` | Banner superior de registro de línea ante la CRT (compartido) |
+| `App` | Root de home — monta todos los componentes |
+
+`src/recargas.tsx` — página `/recargas/`:
+
+| Componente | Descripción |
+|---|---|
+| `RecargaCard` | Tarjeta de recarga (GB + precio + vigencia + botón) |
+| `RecargasSection` | Grid de 3 tarjetas de recarga (2GB/4GB/5GB) |
+| `RecargasPage` | Root de la página — reutiliza `Navbar`/`Footer`/`RegisterBanner` de `app.tsx` |
+
+Para agregar una nueva página: crear `<page>/index.html` + `src/<page>-main.tsx` + `src/<page>.tsx`, y registrar el HTML en `build.rollupOptions.input` de `vite.config.ts`.
 
 ## Design tokens
 
