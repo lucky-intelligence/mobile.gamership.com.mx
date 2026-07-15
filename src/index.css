@@ -43,4 +43,43 @@ body {
   border-radius: 4px;
 }
 
-/* Border Beam — ver src/components/ui/border-beam.tsx */
+/* Border Beam */
+@keyframes beam-rotate {
+  to { transform: rotate(360deg); }
+}
+
+.border-beam-wrapper {
+  position: relative;
+  padding: 2px;
+  border-radius: 25px;
+  overflow: hidden;
+}
+
+.border-beam-wrapper::before {
+  content: '';
+  position: absolute;
+  inset: -100%;
+  width: 300%;
+  height: 300%;
+  background: conic-gradient(
+    from 0deg at 50% 50%,
+    rgba(80, 251, 210, 0)   0deg,
+    rgba(80, 251, 210, 0) 300deg,
+    rgba(80, 251, 210, 1) 325deg,
+    rgba(130, 36, 227, 1) 345deg,
+    rgba(85,  24, 193, 0) 360deg
+  );
+  animation: beam-rotate calc(var(--beam-duration, 4) * 1s) linear infinite;
+  pointer-events: none;
+}
+
+.border-beam-inner {
+  position: relative;
+  z-index: 1;
+  border-radius: 23px;
+  background: white;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}

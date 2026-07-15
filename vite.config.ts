@@ -5,14 +5,6 @@ export default defineConfig({
   esbuild: {
     jsxImportSource: 'preact',
   },
-  build: {
-    rollupOptions: {
-      input: {
-        main: resolve(__dirname, 'index.html'),
-        recargas: resolve(__dirname, 'recargas/index.html'),
-      },
-    },
-  },
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src'),
