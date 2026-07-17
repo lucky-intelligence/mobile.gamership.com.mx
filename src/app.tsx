@@ -512,7 +512,7 @@ function PlansSection() {
             <p className="text-[37px] font-semibold uppercase leading-tight">BASIC</p>
             <div className="flex items-baseline gap-1 mt-1">
               <span className="text-[18px] font-semibold">$</span>
-              <span className="text-[48px] font-semibold leading-none">129</span>
+              <span className="text-[48px] font-semibold leading-none">150</span>
               <span className="text-[18px] font-semibold ml-1">MXN</span>
             </div>
             <p className="text-[15px] font-bold mt-2">{t('basic.validity')}</p>
