@@ -24,7 +24,7 @@ export const common = {
       closeMenu: 'Cerrar menú',
     },
     banner: {
-      text: 'Es obligatorio registrar tu línea móvil ante la CRT. Vincula tu número para evitar la suspensión del servicio.',
+      text: 'Recuerda que por disposición oficial es obligatorio vincular tu línea. Vincula tu número en 3 sencillos pasos:',
       cta: 'Vincular mi línea',
       closeAria: 'Cerrar aviso',
     },

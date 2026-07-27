@@ -1,6 +1,6 @@
 {
   "name": "gsm-ui",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "description": "Gamership Mobile landing page — clone de mobile.gamership.com.mx",
 	"scripts": {
@@ -13,7 +13,7 @@
 	},
   "dependencies": {
     "@aws-sdk/client-secrets-manager": "^3.1079.0",
-    "@lucky-intelligence/account-core": "^1.0.0",
+    "@lucky-intelligence/account-core": "^1.0.1",
     "@lucky-intelligence/account-ui": "^1.2.8",
     "@stripe/react-stripe-js": "^6.6.0",
     "@stripe/stripe-js": "^9.8.0",
