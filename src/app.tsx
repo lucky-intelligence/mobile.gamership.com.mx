@@ -781,7 +781,7 @@ const DashboardRoute = accountScope(() => (
   <AuthProvider>
     <GlobalProvider>
       <Authenticated>
-        <Dashboard crtCheckPath="/vincula-tu-linea/consultar" crtRegisterPath="/vincula-tu-linea/registro" />
+        <Dashboard crtCheckPath="/vincula-tu-linea/consultar" crtRegisterPath="/vincula-tu-linea/registro" hideExpiry={import.meta.env.VITE_HIDE_EXPIRY === 'true'} />
       </Authenticated>
     </GlobalProvider>
   </AuthProvider>
