@@ -781,7 +781,7 @@ const DashboardRoute = accountScope(() => (
   <AuthProvider>
     <GlobalProvider>
       <Authenticated>
-        <Dashboard />
+        <Dashboard crtCheckPath="/vincula-tu-linea/consultar" crtRegisterPath="/vincula-tu-linea/registro" />
       </Authenticated>
     </GlobalProvider>
   </AuthProvider>
