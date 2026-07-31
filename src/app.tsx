@@ -90,7 +90,6 @@ const PLANS: Plan[] = [
     totalGB: '8GB',
     sms: '50',
     minutes: '200',
-    featured: true,
   },
   {
     id: 'Gamership_Epic',
@@ -103,6 +102,7 @@ const PLANS: Plan[] = [
     totalGB: '13GB',
     sms: '50',
     minutes: '200',
+    featured: true,
   },
   {
     id: 'Gamership_Legendary',
@@ -347,6 +347,22 @@ function HeroSection() {
             <br />
             {t('hero.subtitle2')}
           </p>
+          <div className="flex flex-col sm:flex-row gap-4 pt-6">
+            <a
+              href="/paquetes"
+              className="inline-flex items-center justify-center rounded-full bg-[#5518c1] px-8 py-4 text-[15px] font-semibold text-white transition-all duration-200 hover:bg-[#8224e3] hover:scale-105 active:scale-95"
+              style={{ fontFamily: 'var(--font-rubik)' }}
+            >
+              {t('hero.ctaPlans')}
+            </a>
+            <a
+              href="/portabilidad"
+              className="inline-flex items-center justify-center rounded-full border-2 border-[#5518c1] px-8 py-4 text-[15px] font-semibold text-[#5518c1] transition-all duration-200 hover:bg-[#5518c1] hover:text-white hover:scale-105 active:scale-95"
+              style={{ fontFamily: 'var(--font-rubik)' }}
+            >
+              {t('hero.ctaPortability')}
+            </a>
+          </div>
         </motion.div>
 
         <motion.div
@@ -386,6 +402,74 @@ function HeroSection() {
             <img src="/gm-site/joystick-pixel.png" alt="" width={46} height={46} className="w-11 h-11 object-contain" />
           </motion.div>
         </motion.div>
+      </div>
+    </section>
+  )
+}
+
+/* ============================================================
+   WHY CHOOSE SECTION
+   ============================================================ */
+const WHY_CHOOSE_ICONS = [
+  // Señal / cobertura triple carrier
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+    <rect x="3" y="14" width="3" height="6" rx="1" />
+    <rect x="8" y="11" width="3" height="9" rx="1" />
+    <rect x="13" y="7.5" width="3" height="12.5" rx="1" />
+    <rect x="18" y="4" width="3" height="16" rx="1" />
+  </svg>,
+  // Escudo / membresía
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+    <path d="M12 2.5 4.5 5.7v5.6c0 4.6 3.2 8.9 7.5 10.2 4.3-1.3 7.5-5.6 7.5-10.2V5.7L12 2.5Z" />
+    <path d="m9 12 2.2 2.2L15.5 10" />
+  </svg>,
+  // Headset / gamers
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+    <path d="M4 14v-2a8 8 0 0 1 16 0v2" />
+    <rect x="2.5" y="13.5" width="4.5" height="7" rx="2" />
+    <rect x="17" y="13.5" width="4.5" height="7" rx="2" />
+  </svg>,
+  // Rayo / máxima velocidad
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+    <path d="M13 2 4 14h6.5l-1.5 8 9-12h-6.5L13 2Z" />
+  </svg>,
+]
+
+function WhyChooseSection() {
+  const { t } = useTranslation('landing')
+  return (
+    <section className="bg-white py-20" style={{ fontFamily: 'var(--font-manrope)' }}>
+      <div className="mx-auto max-w-[1280px] px-6">
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-[40px] md:text-[55px] font-bold text-[#5518c1] text-center mb-14"
+          style={{ fontFamily: 'var(--font-rubik)' }}
+        >
+          {t('whyChoose.title')}
+        </motion.h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {WHY_CHOOSE_ICONS.map((icon, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.15 }}
+              className="flex flex-col items-center text-center p-7 rounded-[24px] bg-[#f5f5ff] transition-shadow duration-300 hover:shadow-[0_12px_32px_rgba(85,24,193,0.10)] group cursor-default"
+            >
+              <div className="flex h-12 w-12 items-center justify-center rounded-[14px] bg-[#5518c1] text-white transition-transform duration-300 group-hover:scale-110">
+                {icon}
+              </div>
+              <h3 className="mt-5 text-[17px] font-bold leading-snug text-[#00010a]" style={{ fontFamily: 'var(--font-rubik)' }}>
+                {t(`whyChoose.f${i + 1}.title`)}
+              </h3>
+              <p className="mt-3 text-[14px] text-[#555] leading-relaxed">{t(`whyChoose.f${i + 1}.desc`)}</p>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   )
@@ -467,8 +551,21 @@ function PlanCard({ plan, index }: { plan: Plan; index: number }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className={`transition-all duration-200 hover:-translate-y-1 ${isEpic ? 'rounded-[25px] hover:shadow-xl' : 'relative rounded-[25px] overflow-hidden flex flex-col bg-white hover:shadow-xl'}`}
+      className={`relative transition-all duration-200 hover:-translate-y-1 ${isEpic ? 'rounded-[25px] hover:shadow-xl' : 'rounded-[25px] overflow-hidden flex flex-col bg-white hover:shadow-xl'}`}
     >
+      {/* Sits outside BorderBeam: that wrapper clips overflow, and the pill
+          deliberately overhangs the card's top edge. */}
+      {plan.featured && (
+        <div
+          className="absolute left-1/2 -top-4 z-20 -translate-x-1/2 flex items-center gap-1.5 whitespace-nowrap rounded-full bg-[#50fbd2] px-4 py-2 text-[12px] font-bold uppercase tracking-wide text-[#5518c1] shadow-[0_4px_14px_rgba(85,24,193,0.18)]"
+          style={{ fontFamily: 'var(--font-rubik)' }}
+        >
+          <svg viewBox="0 0 24 24" fill="currentColor" className="h-3.5 w-3.5">
+            <path d="M12 2.5l2.9 5.9 6.5.95-4.7 4.58 1.11 6.47L12 17.35 6.19 20.4l1.11-6.47-4.7-4.58 6.5-.95L12 2.5z" />
+          </svg>
+          {t('plan.recommended')}
+        </div>
+      )}
       {isEpic ? (
         <BorderBeam duration={4}>{cardContent}</BorderBeam>
       ) : cardContent}
@@ -557,15 +654,36 @@ function PlansSection() {
 }
 
 /* ============================================================
-   BENEFITS SECTION
+   ECOSYSTEM SECTION
    ============================================================ */
-const BENEFITS = [
-  { img: '/gm-site/streaming.png', key: 'community' },
-  { img: '/gm-site/like.png', key: 'social' },
-  { img: '/gm-site/gaming.svg', key: 'gaming' },
+const ECOSYSTEM = [
+  {
+    key: 'app',
+    href: null,
+    // Brand icon: ships with its own purple rounded-square, so it replaces the
+    // tile wrapper the other two use instead of sitting inside it.
+    iconSrc: '/gm-site/app-icon.svg',
+    icon: null,
+  },
+  {
+    key: 'partners',
+    href: null,
+    // Brand icon: ships with its own purple rounded-square, so it replaces the
+    // tile wrapper the other two use instead of sitting inside it.
+    iconSrc: '/gm-site/partners-icon.svg',
+    icon: null,
+  },
+  {
+    key: 'eshop',
+    href: 'https://eshop.gamership.com.mx/',
+    // Brand icon: ships with its own purple rounded-square, so it replaces the
+    // tile wrapper the other two use instead of sitting inside it.
+    iconSrc: '/gm-site/eshop-icon.svg',
+    icon: null,
+  },
 ] as const
 
-function BenefitsSection() {
+function EcosystemSection() {
   const { t } = useTranslation('landing')
 
   return (
@@ -578,32 +696,44 @@ function BenefitsSection() {
           className="text-[32px] md:text-[40px] font-extrabold text-[#5518c1] text-center mb-14"
           style={{ fontFamily: 'var(--font-rubik)' }}
         >
-          {t('benefits.title')}
+          {t('ecosystem.title')}
         </motion.h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {BENEFITS.map((b, i) => {
-            const title = t(`benefits.${b.key}.title`)
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {ECOSYSTEM.map((item, i) => {
+            // Only the eShop has a destination today; the other two render as
+            // plain cards until their URLs exist.
+            const Tag = item.href ? 'a' : 'div'
             return (
               <motion.div
-                key={b.key}
+                key={item.key}
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.15 }}
-                className="text-center space-y-4 group cursor-default"
               >
-                <div className="flex justify-center">
-                  <img
-                    src={b.img}
-                    alt={title}
-                    width={160}
-                    height={120}
-                    className="w-[140px] h-[110px] object-contain transition-transform duration-300 group-hover:scale-105"
-                  />
-                </div>
-                <h3 className="text-[18px] font-bold text-[#00010a]" style={{ fontFamily: 'var(--font-rubik)' }}>{title}</h3>
-                <p className="text-[14px] text-[#555] leading-relaxed">{t(`benefits.${b.key}.desc`)}</p>
+                <Tag
+                  {...(item.href ? { href: item.href, target: '_blank', rel: 'noopener noreferrer' } : {})}
+                  className="group flex h-full flex-col items-center rounded-[24px] bg-[#f5f5ff] p-7 text-center transition-shadow duration-300 hover:shadow-[0_12px_32px_rgba(85,24,193,0.10)]"
+                >
+                  {item.iconSrc ? (
+                    <img
+                      src={item.iconSrc}
+                      alt=""
+                      width={56}
+                      height={56}
+                      className="h-14 w-14 object-contain transition-transform duration-300 group-hover:scale-110"
+                    />
+                  ) : (
+                    <div className="flex h-14 w-14 items-center justify-center rounded-[16px] bg-[#5518c1] text-white transition-transform duration-300 group-hover:scale-110">
+                      {item.icon}
+                    </div>
+                  )}
+                  <h3 className="mt-5 text-[18px] font-bold text-[#00010a]" style={{ fontFamily: 'var(--font-rubik)' }}>
+                    {t(`ecosystem.${item.key}.title`)}
+                  </h3>
+                  <p className="mt-3 text-[14px] text-[#555] leading-relaxed">{t(`ecosystem.${item.key}.desc`)}</p>
+                </Tag>
               </motion.div>
             )
           })}
@@ -803,8 +933,9 @@ function LandingPage() {
   return (
     <main>
       <HeroSection />
+      <WhyChooseSection />
       <PlansSection />
-      <BenefitsSection />
+      <EcosystemSection />
     </main>
   )
 }
