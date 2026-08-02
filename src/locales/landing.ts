@@ -65,6 +65,30 @@ export const landing = {
         desc: 'Consolas, accesorios, códigos digitales y monedas de juego, con descuentos exclusivos para miembros de la comunidad.',
       },
     },
+    recargas: {
+      title: 'Recargas',
+      label: 'Loot',
+      cta: 'Recargar',
+      validity: 'Vigencia de 30 días',
+      shareData: 'Comparte Datos',
+      speed: 'Datos A Máxima Velocidad',
+      roaming: 'GB Para EE.UU y CAN',
+      seeMore: 'Ver más',
+      flipBack: 'Regresar',
+      meta: 'Data adicional · Vigencia 30 días · apilable',
+      loot2: {
+        name: 'LOOT 2GB',
+        desc: 'El parche de emergencia. 2 GB para ese instante en que tu paquete dijo adiós y al mes todavía le quedaban ganas de guerra. Suficiente para no salir de la partida ni admitir en voz alta que te lo acabaste antes de tiempo. Vigencia 30 días, encaja con cualquier paquete.',
+      },
+      loot4: {
+        name: 'LOOT 4GB',
+        desc: 'Para el que juró que 4 GB extra no le hacían falta… y aquí está, leyendo esto. 4 GB para cerrar el mes con la frente en alto y sin mendigar el WiFi del vecino. Vigencia 30 días, se suma a lo que ya traigas.',
+      },
+      loot5: {
+        name: 'LOOT 5GB',
+        desc: 'El extra de los que confundieron "me alcanza el mes" con "juego 14 horas diarias". 5 GB para seguir sin voltear a ver el contador con miedo. Vigencia 30 días, se apila sobre lo que ya traigas.',
+      },
+    },
     notFound: {
       title: 'Página no encontrada',
       cta: 'Volver al inicio',
@@ -134,6 +158,30 @@ export const landing = {
       eshop: {
         title: 'eShop',
         desc: 'Consoles, accessories, digital codes and in-game currency, with exclusive discounts for community members.',
+      },
+    },
+    recargas: {
+      title: 'Recharges',
+      label: 'Loot',
+      cta: 'Top up',
+      validity: '30-day validity',
+      shareData: 'Share Data',
+      speed: 'Data At Full Speed',
+      roaming: 'GB For US & CAN',
+      seeMore: 'See more',
+      flipBack: 'Back',
+      meta: 'Extra data · 30-day validity · stackable',
+      loot2: {
+        name: 'LOOT 2GB',
+        desc: 'The emergency patch. 2 GB for that moment when your plan tapped out and the month still had some fight left in it. Enough to stay in the match without admitting out loud that you burned through it early. Valid 30 days, fits any plan.',
+      },
+      loot4: {
+        name: 'LOOT 4GB',
+        desc: 'For the one who swore 4 extra GB were unnecessary… and here you are, reading this. 4 GB to close out the month with your head high and without begging for the neighbor\'s WiFi. Valid 30 days, adds to whatever you already have.',
+      },
+      loot5: {
+        name: 'LOOT 5GB',
+        desc: 'The top-up for those who confused "it\'ll last me the month" with "I play 14 hours a day". 5 GB to keep going without checking the counter in fear. Valid 30 days, stacks on top of whatever you already have.',
       },
     },
     notFound: {

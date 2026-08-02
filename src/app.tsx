@@ -126,7 +126,7 @@ const FOOTER_LINKS = {
   ],
   compania: [
     { key: 'packages', href: '/paquetes' },
-    { key: 'recharges', href: '/recargas/' },
+    { key: 'recharges', href: '/recargas' },
     { key: 'faq', href: '/explore' },
     { key: 'portability', href: '/telefonia/portabilidad/' },
     { key: 'activateSim', href: '#' },
@@ -744,6 +744,192 @@ function EcosystemSection() {
 }
 
 /* ============================================================
+   RECARGAS PAGE (independent route — not part of LandingPage)
+   ============================================================ */
+type Recarga = { key: string; gb: string; price: string }
+
+const RECARGAS: Recarga[] = [
+  { key: 'loot2', gb: '2GB', price: '79.00' },
+  { key: 'loot4', gb: '4GB', price: '149.00' },
+  { key: 'loot5', gb: '5GB', price: '179.00' },
+]
+
+/* Icons size to their wrapper (h-full/w-full) and inherit its color, so each
+   surface picks its own. */
+const DATA_BENEFITS = [
+  {
+    key: 'speed',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="h-full w-full">
+        <path d="M3.5 17a9 9 0 1 1 17 0" />
+        <path d="m12 13.5 4.2-4" />
+        <circle cx="12" cy="14.4" r="1.5" />
+      </svg>
+    ),
+  },
+  {
+    key: 'shareData',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="h-full w-full">
+        <circle cx="12" cy="12" r="1.8" fill="currentColor" stroke="none" />
+        <path d="M8.6 15.4a4.8 4.8 0 0 1 0-6.8M15.4 8.6a4.8 4.8 0 0 1 0 6.8" />
+        <path d="M5.8 18.2a8.8 8.8 0 0 1 0-12.4M18.2 5.8a8.8 8.8 0 0 1 0 12.4" />
+      </svg>
+    ),
+  },
+  {
+    key: 'roaming',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="h-full w-full">
+        {/* US */}
+        <rect x="1.5" y="7.5" width="9.5" height="9" rx="1.2" />
+        <path d="M1.5 10.5h9.5M1.5 13.5h9.5M6 7.5v3" />
+        {/* Canada */}
+        <rect x="13" y="7.5" width="9.5" height="9" rx="1.2" />
+        <path d="M16 7.5v9M19.5 7.5v9" />
+        <path d="M17.75 10.3l.7 1.4 1.1-.3-.5 1.3h-2.6l-.5-1.3 1.1.3.7-1.4Z" fill="currentColor" stroke="none" />
+      </svg>
+    ),
+  },
+] as const
+
+function RecargaCard({ recarga, index }: { recarga: Recarga; index: number }) {
+  const { t } = useTranslation('landing')
+  const [flipped, setFlipped] = useState(false)
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      className="flip-card h-[520px]"
+    >
+      <div className={`flip-card-inner ${flipped ? 'is-flipped' : ''}`}>
+        {/* FRONT */}
+        <div className="flip-card-face rounded-[25px] overflow-hidden flex flex-col bg-white border border-[#e5e5f2] shadow-sm hover:shadow-xl transition-shadow duration-200">
+          <div className="px-6 pt-8 pb-6 bg-[#5518c1] rounded-t-[25px] text-center" style={{ fontFamily: 'var(--font-rubik)' }}>
+            <p className="text-[13px] font-semibold uppercase tracking-widest text-[#ffffff99]">{t('recargas.label')}</p>
+            <h3 className="text-[42px] font-extrabold text-white leading-tight">{recarga.gb}</h3>
+            <p className="text-[13px] font-medium text-[#ffffffb3]">{t('plan.freeNav')}</p>
+          </div>
+
+          <div className="flex-1 flex flex-col items-center justify-center px-6 py-6 text-center" style={{ fontFamily: 'var(--font-rubik)' }}>
+            <span className="mb-3 inline-block rounded-full bg-[#f1f1f5] px-3.5 py-1.5 text-[12px] font-medium text-[#666]">
+              {t('recargas.validity')}
+            </span>
+            <div className="flex items-baseline justify-center gap-1">
+              <span className="text-[36px] font-extrabold text-[#00010a]">${recarga.price}</span>
+              <span className="text-[14px] font-medium text-[#666]">MXN</span>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setFlipped(true)}
+              className="mt-4 inline-flex items-center gap-1 text-[13px] font-semibold text-[#5518c1] hover:text-[#8224e3] transition-colors duration-200 cursor-pointer"
+            >
+              {t('recargas.seeMore')}
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5">
+                <path d="m9 6 6 6-6 6" />
+              </svg>
+            </button>
+
+            <div className="mt-6 grid w-full grid-cols-3 gap-2 border-t border-[#f0f0f8] pt-5 text-[#5518c1]">
+              {DATA_BENEFITS.map((b) => (
+                <div key={b.key} className="flex flex-col items-center gap-1.5 text-center">
+                  <div className="h-5 w-5">{b.icon}</div>
+                  <p className="text-[8px] font-semibold uppercase leading-tight tracking-wide">{t(`recargas.${b.key}`)}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="px-6 py-6 bg-[#50fbd2] text-center">
+            <a
+              href="/dashboard"
+              className="block w-full text-center rounded-full bg-[#5518c1] py-4 text-[13px] font-medium uppercase text-white transition-all duration-200 hover:bg-[#8224e3] hover:scale-[1.02] active:scale-[0.98]"
+              style={{ fontFamily: 'var(--font-rubik)' }}
+            >
+              {t('recargas.cta')}
+            </a>
+          </div>
+        </div>
+
+        {/* BACK — product copy, keeping the buy button from the front face */}
+        <div className="flip-card-face flip-card-back rounded-[25px] overflow-hidden flex flex-col bg-white border border-[#e5e5f2] shadow-sm">
+          <div className="flex-1 flex flex-col justify-center px-6 py-6 text-left">
+            <h4 className="flex items-center gap-2 text-[17px] font-bold text-[#5518c1]" style={{ fontFamily: 'var(--font-rubik)' }}>
+              <span className="text-[#50fbd2] drop-shadow-[0_0_1px_rgba(85,24,193,0.6)]">◆</span>
+              {t(`recargas.${recarga.key}.name`)}
+            </h4>
+            <p className="mt-1.5 text-[11px] font-semibold uppercase tracking-wide text-[#8224e3]">
+              {t('recargas.meta')}
+            </p>
+            <p className="mt-3 text-[13px] leading-relaxed text-[#444]" style={{ fontFamily: 'var(--font-manrope)' }}>
+              {t(`recargas.${recarga.key}.desc`)}
+            </p>
+
+            <button
+              type="button"
+              onClick={() => setFlipped(false)}
+              className="mt-4 inline-flex items-center gap-1 self-start text-[13px] font-semibold text-[#5518c1] hover:text-[#8224e3] transition-colors duration-200 cursor-pointer"
+              style={{ fontFamily: 'var(--font-rubik)' }}
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5">
+                <path d="m15 6-6 6 6 6" />
+              </svg>
+              {t('recargas.flipBack')}
+            </button>
+          </div>
+
+          <div className="px-6 py-6 bg-[#50fbd2] text-center">
+            <a
+              href="/dashboard"
+              className="block w-full text-center rounded-full bg-[#5518c1] py-4 text-[13px] font-medium uppercase text-white transition-all duration-200 hover:bg-[#8224e3] hover:scale-[1.02] active:scale-[0.98]"
+              style={{ fontFamily: 'var(--font-rubik)' }}
+            >
+              {t('recargas.cta')}
+            </a>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  )
+}
+
+function RecargasPage() {
+  const { t } = useTranslation('landing')
+
+  useEffect(() => {
+    window.scrollTo({ top: 0 })
+  }, [])
+
+  return (
+    <main>
+      <section className="bg-white py-20" style={{ fontFamily: 'var(--font-manrope)' }}>
+        <div className="mx-auto max-w-[1280px] px-6">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-[40px] md:text-[55px] font-bold text-[#5518c1] text-center mb-12"
+            style={{ fontFamily: 'var(--font-rubik)' }}
+          >
+            {t('recargas.title')}
+          </motion.h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-[900px] mx-auto">
+            {RECARGAS.map((recarga, i) => (
+              <RecargaCard key={recarga.gb} recarga={recarga} index={i} />
+            ))}
+          </div>
+        </div>
+      </section>
+    </main>
+  )
+}
+
+/* ============================================================
    FOOTER
    ============================================================ */
 function Footer() {
@@ -977,7 +1163,7 @@ export function App() {
             <Route path="/" component={LandingPage} />
             {/* Landing-section routes: render the landing and scroll to the section. */}
             <Route path="/paquetes" component={LandingPage} />
-            <Route path="/recargas" component={LandingPage} />
+            <Route path="/recargas" component={RecargasPage} />
             <Route path="/portabilidad" component={LandingPage} />
             <Route path="/atencion" component={LandingPage} />
 
