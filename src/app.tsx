@@ -490,6 +490,7 @@ function WhyChooseSection() {
    ============================================================ */
 function PlanCard({ plan, index }: { plan: Plan; index: number }) {
   const { t } = useTranslation('landing')
+  const [flipped, setFlipped] = useState(false)
   const isEpic = plan.tier === 'EPIC'
 
   const cardContent = (
@@ -534,6 +535,17 @@ function PlanCard({ plan, index }: { plan: Plan; index: number }) {
             <span className="text-[16px] font-bold text-[#5518c1]">{plan.streamingGB}</span>
           </div>
         </div>
+
+        <button
+          type="button"
+          onClick={() => setFlipped(true)}
+          className="flip-trigger inline-flex items-center gap-1 text-[13px] font-semibold text-[#5518c1] hover:text-[#8224e3] transition-colors duration-200 cursor-pointer"
+        >
+          {t('plan.seeMore')}
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5">
+            <path d="m9 6 6 6-6 6" />
+          </svg>
+        </button>
       </div>
 
       <div className="px-6 py-6 bg-[#50fbd2] text-center space-y-4">
@@ -561,10 +573,11 @@ function PlanCard({ plan, index }: { plan: Plan; index: number }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className={`relative transition-all duration-200 hover:-translate-y-1 ${isEpic ? 'rounded-[25px] hover:shadow-xl' : 'rounded-[25px] overflow-hidden flex flex-col bg-white border border-[#e5e5f2] shadow-sm hover:shadow-xl'}`}
+      className="flip-card flip-card-auto flip-card-hover relative transition-all duration-200 hover:-translate-y-1"
     >
-      {/* Sits outside BorderBeam: that wrapper clips overflow, and the pill
-          deliberately overhangs the card's top edge. */}
+      {/* Sits outside both BorderBeam and the flip container: that wrapper clips
+          overflow, the pill overhangs the card's top edge, and it must stay
+          upright while the card behind it rotates. */}
       {plan.featured && (
         <div
           className="absolute left-1/2 -top-4 z-20 -translate-x-1/2 flex items-center gap-1.5 whitespace-nowrap rounded-full bg-[#50fbd2] px-4 py-2 text-[12px] font-bold uppercase tracking-wide text-[#5518c1] shadow-[0_4px_14px_rgba(85,24,193,0.18)]"
@@ -576,9 +589,57 @@ function PlanCard({ plan, index }: { plan: Plan; index: number }) {
           {t('plan.recommended')}
         </div>
       )}
-      {isEpic ? (
-        <BorderBeam duration={4}>{cardContent}</BorderBeam>
-      ) : cardContent}
+      <div className={`flip-card-inner ${flipped ? 'is-flipped' : ''}`}>
+        <div
+          className={`flip-card-face flip-card-front ${isEpic ? 'rounded-[25px] hover:shadow-xl' : 'rounded-[25px] overflow-hidden flex flex-col bg-white border border-[#e5e5f2] shadow-sm hover:shadow-xl'}`}
+        >
+          {isEpic ? <BorderBeam duration={4}>{cardContent}</BorderBeam> : cardContent}
+        </div>
+
+        {/* BACK — package copy, keeping the buy button from the front face */}
+        <div className="flip-card-face flip-card-back rounded-[25px] overflow-hidden flex flex-col bg-white border border-[#e5e5f2] shadow-sm">
+          <div className="flex-1 flex flex-col justify-center px-6 py-6 text-left">
+            <h4 className="flex items-center gap-2 text-[17px] font-bold text-[#5518c1]" style={{ fontFamily: 'var(--font-rubik)' }}>
+              <span className="text-[#50fbd2] drop-shadow-[0_0_1px_rgba(85,24,193,0.6)]">◆</span>
+              {plan.tier}
+            </h4>
+            {/* Copy ships as one string with blank-line breaks; split it into
+                real paragraphs instead of preserving raw whitespace. */}
+            <div className="mt-3 space-y-2.5 text-[13px] leading-relaxed text-[#444]">
+              {t(`plan.desc.${plan.tier.toLowerCase()}`)
+                .split('\n\n')
+                .map((para, n) => (
+                  <p key={n}>{para}</p>
+                ))}
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setFlipped(false)}
+              className="flip-trigger mt-4 inline-flex items-center gap-1 self-start text-[13px] font-semibold text-[#5518c1] hover:text-[#8224e3] transition-colors duration-200 cursor-pointer"
+              style={{ fontFamily: 'var(--font-rubik)' }}
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5">
+                <path d="m15 6-6 6 6 6" />
+              </svg>
+              {t('plan.back')}
+            </button>
+          </div>
+
+          <div className="px-6 py-6 bg-[#50fbd2] text-center">
+            <a
+              onClick={() => {
+                localStorage.setItem('package', plan.id)
+                window.location.href = '/dashboard'
+              }}
+              className="block w-full cursor-pointer text-center rounded-full bg-[#5518c1] py-4 text-[13px] font-medium uppercase text-white transition-all duration-200 hover:bg-[#8224e3] hover:scale-[1.02] active:scale-[0.98]"
+              style={{ fontFamily: 'var(--font-rubik)' }}
+            >
+              {t('plan.cta')}
+            </a>
+          </div>
+        </div>
+      </div>
     </motion.div>
   )
 }
@@ -813,7 +874,7 @@ function RecargaCard({ recarga, index }: { recarga: Recarga; index: number }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="flip-card h-[520px]"
+      className="flip-card flip-card-hover h-[520px]"
     >
       <div className={`flip-card-inner ${flipped ? 'is-flipped' : ''}`}>
         {/* FRONT */}
@@ -836,7 +897,7 @@ function RecargaCard({ recarga, index }: { recarga: Recarga; index: number }) {
             <button
               type="button"
               onClick={() => setFlipped(true)}
-              className="mt-4 inline-flex items-center gap-1 text-[13px] font-semibold text-[#5518c1] hover:text-[#8224e3] transition-colors duration-200 cursor-pointer"
+              className="flip-trigger mt-4 inline-flex items-center gap-1 text-[13px] font-semibold text-[#5518c1] hover:text-[#8224e3] transition-colors duration-200 cursor-pointer"
             >
               {t('recargas.seeMore')}
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5">
@@ -878,14 +939,18 @@ function RecargaCard({ recarga, index }: { recarga: Recarga; index: number }) {
             <p className="mt-1.5 text-[11px] font-semibold uppercase tracking-wide text-[#8224e3]">
               {t('recargas.meta')}
             </p>
-            <p className="mt-3 text-[13px] leading-relaxed text-[#444]" style={{ fontFamily: 'var(--font-manrope)' }}>
-              {t(`recargas.${recarga.key}.desc`)}
-            </p>
+            <div className="mt-3 space-y-2.5 text-[13px] leading-relaxed text-[#444]" style={{ fontFamily: 'var(--font-manrope)' }}>
+              {t(`recargas.${recarga.key}.desc`)
+                .split('\n\n')
+                .map((para, n) => (
+                  <p key={n}>{para}</p>
+                ))}
+            </div>
 
             <button
               type="button"
               onClick={() => setFlipped(false)}
-              className="mt-4 inline-flex items-center gap-1 self-start text-[13px] font-semibold text-[#5518c1] hover:text-[#8224e3] transition-colors duration-200 cursor-pointer"
+              className="flip-trigger mt-4 inline-flex items-center gap-1 self-start text-[13px] font-semibold text-[#5518c1] hover:text-[#8224e3] transition-colors duration-200 cursor-pointer"
               style={{ fontFamily: 'var(--font-rubik)' }}
             >
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5">
