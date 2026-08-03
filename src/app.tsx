@@ -1,5 +1,6 @@
 import type { ComponentChildren } from 'preact'
 import { useState, useEffect } from 'preact/hooks'
+import { ShieldCheck, MessageCircle, Clock, Check, Plus, Minus, Bot, Mail, ArrowDownRight } from 'lucide-preact'
 import { motion } from 'motion/react'
 import { useTranslation } from 'react-i18next'
 import { LocationProvider, Router, Route, useLocation } from 'preact-iso'
@@ -1105,8 +1106,28 @@ function PortabilityForm() {
   )
 }
 
+const PORTABILITY_SAFETY = [
+  { key: 's1', Icon: ShieldCheck },
+  { key: 's2', Icon: MessageCircle },
+  { key: 's3', Icon: Clock },
+] as const
+
+const PORTABILITY_STEP_KEYS = ['s1', 's2', 's3', 's4'] as const
+const PORTABILITY_DATA_KEYS = ['d1', 'd2', 'd3'] as const
+const PORTABILITY_LINE_KEYS = ['l1', 'l2', 'l3'] as const
+const PORTABILITY_FAQ_KEYS = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6'] as const
+
+const PORTABILITY_WHATSAPP = 'https://wa.me/15558386208'
+
+// Colour is applied per section so the same heading can sit on light, mint or
+// purple backgrounds without breaking contrast.
+const portSectionTitle = 'text-center text-[32px] md:text-[55px] font-bold leading-[1.5]'
+const portListItem = 'flex items-start gap-3 text-[16px] leading-[24px]'
+const portColumnLabel = 'text-[14px] font-bold uppercase tracking-wide text-[#50fbd2]'
+
 function PortabilityPage() {
   const { t } = useTranslation('landing')
+  const [openFaq, setOpenFaq] = useState(0)
   useEffect(() => {
     window.scrollTo({ top: 0 })
   }, [])
@@ -1134,9 +1155,494 @@ function PortabilityPage() {
         </div>
       </section>
 
-      <section id="portabilidad" className="bg-[#f5f5ff] py-20" style={{ fontFamily: 'var(--font-manrope)' }}>
+      {/* 2 — SEGURIDAD */}
+      <section className="bg-white py-20" style={{ fontFamily: 'var(--font-manrope)' }}>
+        <div className="mx-auto max-w-[1200px] px-6">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className={`${portSectionTitle} text-[#5518c1]`}
+            style={{ fontFamily: 'var(--font-rubik)' }}
+          >
+            {t('portability.safety.title')}
+          </motion.h2>
+
+          <div className="mx-auto mt-12 max-w-[820px] space-y-8">
+            {PORTABILITY_SAFETY.map(({ key, Icon }, i) => (
+              <motion.div
+                key={key}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="border-l-4 border-[#5518c1] pl-6"
+              >
+                <div className="flex h-12 w-12 items-center justify-center rounded-[14px] bg-[#5518c1]">
+                  <Icon size={24} color="white" aria-hidden="true" />
+                </div>
+                <h3 className="mt-4 text-[17px] font-bold text-[#00010a]" style={{ fontFamily: 'var(--font-rubik)' }}>
+                  {t(`portability.safety.${key}.title`)}
+                </h3>
+                <p className="mt-2 text-[16px] leading-[24px] text-[#00010a]/70">
+                  {key === 's3' ? (
+                    <>
+                      {t('portability.safety.s3.before')}
+                      <a
+                        href="https://portabilidad.mx"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-semibold text-[#5518c1] underline underline-offset-2 hover:text-[#8224e3]"
+                      >
+                        {t('portability.safety.s3.link')}
+                      </a>
+                      {t('portability.safety.s3.after')}
+                    </>
+                  ) : (
+                    t(`portability.safety.${key}.body`)
+                  )}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 3 — PASOS */}
+      <section className="bg-[#f5f5ff] py-20" style={{ fontFamily: 'var(--font-manrope)' }}>
+        <div className="mx-auto max-w-[1200px] px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center"
+          >
+            <h2 className={`${portSectionTitle} text-[#5518c1]`} style={{ fontFamily: 'var(--font-rubik)' }}>
+              {t('portability.steps.title')}
+            </h2>
+            <p className="mx-auto mt-4 max-w-[640px] text-[18px] leading-relaxed text-[#00010a]/70">
+              {t('portability.steps.subtitle')}
+            </p>
+          </motion.div>
+
+          <div className="mt-12 grid gap-8 md:grid-cols-4">
+            {PORTABILITY_STEP_KEYS.map((key, i) => (
+              <motion.div
+                key={key}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="flex gap-4 md:flex-col md:gap-0"
+              >
+                <div
+                  className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#5518c1] text-[20px] font-bold text-white"
+                  style={{ fontFamily: 'var(--font-rubik)' }}
+                >
+                  {i + 1}
+                </div>
+                <div className="md:mt-4">
+                  <h3 className="text-[17px] font-bold text-[#00010a]" style={{ fontFamily: 'var(--font-rubik)' }}>
+                    {t(`portability.steps.${key}.title`)}
+                  </h3>
+                  <p className="mt-2 text-[16px] leading-[24px] text-[#00010a]/70">
+                    {t(`portability.steps.${key}.desc`)}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 4 — REQUISITOS */}
+      <section
+        className="py-20 text-white"
+        style={{
+          fontFamily: 'var(--font-manrope)',
+          background: 'radial-gradient(120% 160% at 20% 0%, #8224e3 0%, #5518c1 45%, #2d0a63 100%)',
+        }}
+      >
+        <div className="mx-auto max-w-[1200px] px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center"
+          >
+            <h2 className={`${portSectionTitle} text-white`} style={{ fontFamily: 'var(--font-rubik)' }}>
+              {t('portability.requirements.title')}
+            </h2>
+            <p className="mx-auto mt-4 max-w-[640px] text-[15px] leading-relaxed text-white/80">
+              {t('portability.requirements.note')}
+            </p>
+          </motion.div>
+
+          <div className="mx-auto mt-12 grid max-w-[900px] gap-10 md:grid-cols-2">
+            <div>
+              <p className={portColumnLabel} style={{ fontFamily: 'var(--font-rubik)' }}>
+                {t('portability.requirements.dataLabel')}
+              </p>
+              <ul className="mt-4 space-y-3">
+                {PORTABILITY_DATA_KEYS.map((key) => (
+                  <li key={key} className={`${portListItem} text-white/85`}>
+                    <Check size={20} color="#50fbd2" className="mt-0.5 shrink-0" aria-hidden="true" />
+                    <span>{t(`portability.requirements.${key}`)}</span>
+                  </li>
+                ))}
+                <li className={`${portListItem} text-white/85`}>
+                  <Check size={20} color="#50fbd2" className="mt-0.5 shrink-0" aria-hidden="true" />
+                  <span>
+                    {t('portability.requirements.d4Before')}
+                    <a
+                      href="https://www.gob.mx/curp"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-semibold text-[#50fbd2] underline underline-offset-2 hover:text-white"
+                    >
+                      {t('portability.requirements.d4Link')}
+                    </a>
+                  </span>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <p className={portColumnLabel} style={{ fontFamily: 'var(--font-rubik)' }}>
+                {t('portability.requirements.lineLabel')}
+              </p>
+              <ul className="mt-4 space-y-3">
+                {PORTABILITY_LINE_KEYS.map((key) => (
+                  <li key={key} className={`${portListItem} text-white/85`}>
+                    <Check size={20} color="#50fbd2" className="mt-0.5 shrink-0" aria-hidden="true" />
+                    <span>{t(`portability.requirements.${key}`)}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5 — FORMULARIO (sin cambios) */}
+      <section id="portabilidad" className="bg-white py-20" style={{ fontFamily: 'var(--font-manrope)' }}>
         <div className="mx-auto max-w-[1280px] px-6">
           <PortabilityForm />
+        </div>
+      </section>
+
+      {/* 6 — PREGUNTAS */}
+      <section className="bg-[#f5f5ff] py-20" style={{ fontFamily: 'var(--font-manrope)' }}>
+        <div className="mx-auto max-w-[820px] px-6">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className={`${portSectionTitle} text-[#5518c1]`}
+            style={{ fontFamily: 'var(--font-rubik)' }}
+          >
+            {t('portability.faq.title')}
+          </motion.h2>
+
+          <div className="mt-12 space-y-3">
+            {PORTABILITY_FAQ_KEYS.map((key, i) => {
+              const open = openFaq === i
+              return (
+                <div key={key} className="overflow-hidden rounded-[24px] border border-[#E5E5F2] bg-white shadow-sm">
+                  <button
+                    type="button"
+                    onClick={() => setOpenFaq(open ? -1 : i)}
+                    aria-expanded={open}
+                    aria-controls={`portability-faq-${key}`}
+                    className="flex min-h-[48px] w-full cursor-pointer items-center justify-between gap-4 px-6 py-4 text-left"
+                  >
+                    <span className="text-[17px] font-bold text-[#00010a]" style={{ fontFamily: 'var(--font-rubik)' }}>
+                      {t(`portability.faq.${key}.q`)}
+                    </span>
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#5518c1] text-white">
+                      {open ? <Minus size={18} aria-hidden="true" /> : <Plus size={18} aria-hidden="true" />}
+                    </span>
+                  </button>
+                  {/* Stays mounted so aria-controls always resolves. */}
+                  <div id={`portability-faq-${key}`} hidden={!open}>
+                    <p className="px-6 pb-5 text-[16px] leading-[24px] text-[#00010a]/70">
+                      {t(`portability.faq.${key}.a`)}
+                    </p>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* 7 — CIERRE */}
+      <section className="bg-[#5518c1] py-20" style={{ fontFamily: 'var(--font-manrope)' }}>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mx-auto max-w-[820px] px-6 text-center"
+        >
+          <h2 className={`${portSectionTitle} text-white`} style={{ fontFamily: 'var(--font-rubik)' }}>
+            {t('portability.closing.title')}
+          </h2>
+          <p className="mx-auto mt-4 max-w-[560px] text-[16px] leading-[24px] text-white/80">
+            {t('portability.closing.body')}
+          </p>
+          <a
+            href={PORTABILITY_WHATSAPP}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-8 inline-flex min-h-[48px] items-center gap-2 rounded-full bg-[#50fbd2] px-8 py-4 text-[15px] font-semibold text-[#5518c1] transition-all duration-200 hover:scale-105 active:scale-95"
+            style={{ fontFamily: 'var(--font-rubik)' }}
+          >
+            <MessageCircle size={20} aria-hidden="true" />
+            {t('portability.closing.cta')}
+          </a>
+        </motion.div>
+      </section>
+    </main>
+  )
+}
+
+/* ============================================================
+   ATENCIÓN A CLIENTE PAGE (/atencion) — contact form + channels
+   ============================================================ */
+const SUPPORT_TOPIC_KEYS = ['billing', 'coverage', 'packages', 'portability', 'linkLine', 'other'] as const
+
+const SUPPORT_EMAIL = 'soporte@gamership.com.mx'
+
+function SupportForm() {
+  const { t } = useTranslation('landing')
+  const [form, setForm] = useState({ name: '', email: '', phone: '', topic: '', message: '' })
+  const [submitted, setSubmitted] = useState(false)
+
+  const set = (field: keyof typeof form) => (e: Event) => {
+    const target = e.currentTarget as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    setForm((f) => ({ ...f, [field]: target.value }))
+  }
+
+  const onSubmit = (e: Event) => {
+    e.preventDefault()
+    // TODO: enviar `form` al endpoint de soporte cuando exista.
+    setSubmitted(true)
+  }
+
+  const inputClass =
+    'w-full rounded-xl border border-[#e5e5ef] bg-white px-4 py-3 text-[15px] text-[#00010a] placeholder:text-[#00010a66] outline-none transition-colors focus:border-[#5518c1] focus:ring-2 focus:ring-[#5518c1]/20'
+  const labelClass = 'block text-[13px] font-semibold text-[#00010a] mb-1.5'
+
+  if (submitted) {
+    return (
+      <motion.div
+        initial={{ opacity: 0, scale: 0.96 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.4, ease: 'easeOut' }}
+        className="mx-auto max-w-[620px] rounded-[25px] bg-white p-10 text-center shadow-lg"
+      >
+        <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-[#50fbd2]">
+          <Check size={30} color="#5518c1" strokeWidth={3} aria-hidden="true" />
+        </div>
+        <h3 className="text-[24px] font-bold text-[#5518c1]" style={{ fontFamily: 'var(--font-rubik)' }}>
+          {t('support.form.successTitle')}
+        </h3>
+        <p className="mt-2 text-[15px] leading-relaxed text-[#555]">{t('support.form.success')}</p>
+      </motion.div>
+    )
+  }
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      className="mx-auto max-w-[620px] rounded-[25px] bg-white p-8 md:p-10 shadow-lg"
+    >
+      <h2 className="mb-6 text-center text-[26px] font-bold text-[#5518c1]" style={{ fontFamily: 'var(--font-rubik)' }}>
+        {t('support.form.title')}
+      </h2>
+      <form onSubmit={onSubmit} className="space-y-4">
+        <div>
+          <label className={labelClass} htmlFor="sf-name">{t('support.form.name')}</label>
+          <input id="sf-name" type="text" required value={form.name} onInput={set('name')} placeholder={t('support.form.namePlaceholder')} className={inputClass} />
+        </div>
+        <div>
+          <label className={labelClass} htmlFor="sf-email">{t('support.form.email')}</label>
+          <input id="sf-email" type="email" required value={form.email} onInput={set('email')} placeholder={t('support.form.emailPlaceholder')} className={inputClass} />
+        </div>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div>
+            <label className={labelClass} htmlFor="sf-phone">
+              {t('support.form.phone')} <span className="font-normal text-[#888]">({t('support.form.phoneOptional')})</span>
+            </label>
+            <input id="sf-phone" type="tel" inputMode="numeric" pattern="[0-9]{10}" maxLength={10} value={form.phone} onInput={set('phone')} placeholder={t('support.form.phonePlaceholder')} className={inputClass} />
+          </div>
+          <div>
+            <label className={labelClass} htmlFor="sf-topic">{t('support.form.topic')}</label>
+            <select id="sf-topic" required value={form.topic} onChange={set('topic')} className={`${inputClass} ${form.topic === '' ? 'text-[#00010a66]' : ''}`}>
+              <option value="" disabled>{t('support.form.topicPlaceholder')}</option>
+              {SUPPORT_TOPIC_KEYS.map((k) => (
+                <option key={k} value={k} className="text-[#00010a]">
+                  {t(`support.form.topics.${k}`)}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+        <div>
+          <label className={labelClass} htmlFor="sf-message">{t('support.form.message')}</label>
+          <textarea
+            id="sf-message"
+            required
+            rows={5}
+            value={form.message}
+            onInput={set('message')}
+            placeholder={t('support.form.messagePlaceholder')}
+            className={`${inputClass} resize-y`}
+          />
+        </div>
+        <button
+          type="submit"
+          className="min-h-[48px] w-full rounded-full bg-[#5518c1] py-4 text-[15px] font-semibold text-white transition-all duration-200 hover:bg-[#8224e3] hover:scale-[1.01] active:scale-[0.99] cursor-pointer"
+          style={{ fontFamily: 'var(--font-rubik)' }}
+        >
+          {t('support.form.submit')}
+        </button>
+      </form>
+    </motion.div>
+  )
+}
+
+function SupportPage() {
+  const { t } = useTranslation('landing')
+  useEffect(() => {
+    window.scrollTo({ top: 0 })
+  }, [])
+
+  const cardClass = 'flex h-full flex-col rounded-[24px] border border-[#E5E5F2] bg-white p-7 shadow-sm'
+  const cardTitle = 'mt-5 text-[17px] font-bold text-[#00010a]'
+  const cardBody = 'mt-2 text-[16px] leading-[24px] text-[#00010a]/70'
+  const iconTile = 'flex h-12 w-12 items-center justify-center rounded-[14px] bg-[#5518c1]'
+
+  return (
+    <main style={{ fontFamily: 'var(--font-manrope)' }}>
+      <section className="bg-[#F8F9FD] overflow-hidden">
+        <div className="mx-auto max-w-[1280px] px-6 pt-16 pb-12 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+            className="space-y-4"
+          >
+            <p className="text-[18px] font-semibold uppercase tracking-wide text-[#5518c1]" style={{ fontFamily: 'var(--font-rubik)' }}>
+              {t('support.eyebrow')}
+            </p>
+            <h1 className="text-[44px] md:text-[64px] font-black leading-tight text-[#1c1c1c]">
+              {t('support.title')}
+            </h1>
+            <p className="mx-auto max-w-[640px] text-[18px] md:text-[22px] font-medium leading-relaxed text-[#5518c1]" style={{ fontFamily: 'var(--font-rubik)' }}>
+              {t('support.subtitle')}
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      <section className="bg-[#f5f5ff] py-20">
+        <div className="mx-auto max-w-[1280px] px-6">
+          <SupportForm />
+        </div>
+      </section>
+
+      <section className="bg-white py-20">
+        <div className="mx-auto max-w-[1200px] px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center"
+          >
+            <h2 className="text-center text-[32px] md:text-[55px] font-bold leading-[1.5] text-[#5518c1]" style={{ fontFamily: 'var(--font-rubik)' }}>
+              {t('support.channels.title')}
+            </h2>
+            <p className="mx-auto mt-4 max-w-[640px] text-[16px] leading-[24px] text-[#00010a]/70">
+              {t('support.channels.subtitle')}
+            </p>
+          </motion.div>
+
+          <div className="mt-12 grid gap-6 md:grid-cols-3">
+            {/* WhatsApp */}
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className={cardClass}
+            >
+              <div className={iconTile}>
+                <MessageCircle size={24} color="white" aria-hidden="true" />
+              </div>
+              <h3 className={cardTitle} style={{ fontFamily: 'var(--font-rubik)' }}>
+                {t('support.channels.whatsapp.title')}
+              </h3>
+              <p className={cardBody}>{t('support.channels.whatsapp.desc')}</p>
+              <a
+                href={PORTABILITY_WHATSAPP}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-6 inline-flex min-h-[48px] items-center justify-center rounded-full bg-[#5518c1] px-8 py-4 text-[15px] font-semibold text-white transition-all duration-200 hover:bg-[#8224e3] hover:scale-105 active:scale-95"
+                style={{ fontFamily: 'var(--font-rubik)' }}
+              >
+                {t('support.channels.whatsapp.cta')}
+              </a>
+            </motion.div>
+
+            {/* Arby — the chat widget mounts a closed shadow root and exposes no
+                API, so it cannot be opened from here. Point at its launcher. */}
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className={cardClass}
+            >
+              <div className={iconTile}>
+                <Bot size={24} color="white" aria-hidden="true" />
+              </div>
+              <h3 className={cardTitle} style={{ fontFamily: 'var(--font-rubik)' }}>
+                {t('support.channels.arby.title')}
+              </h3>
+              <p className={cardBody}>{t('support.channels.arby.desc')}</p>
+              <p className="mt-6 flex items-start gap-2 rounded-[14px] bg-[#f5f5ff] p-4 text-[14px] leading-relaxed text-[#5518c1]">
+                <ArrowDownRight size={18} className="mt-0.5 shrink-0" aria-hidden="true" />
+                {t('support.channels.arby.hint')}
+              </p>
+            </motion.div>
+
+            {/* Correo */}
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className={cardClass}
+            >
+              <div className={iconTile}>
+                <Mail size={24} color="white" aria-hidden="true" />
+              </div>
+              <h3 className={cardTitle} style={{ fontFamily: 'var(--font-rubik)' }}>
+                {t('support.channels.email.title')}
+              </h3>
+              <p className={cardBody}>{t('support.channels.email.desc')}</p>
+              <a
+                href={`mailto:${SUPPORT_EMAIL}`}
+                className="mt-6 inline-flex min-h-[48px] items-center justify-center rounded-full border-2 border-[#5518c1] px-8 py-4 text-[15px] font-semibold text-[#5518c1] transition-all duration-200 hover:bg-[#5518c1] hover:text-white active:scale-95"
+                style={{ fontFamily: 'var(--font-rubik)' }}
+              >
+                {t('support.channels.email.cta')}
+              </a>
+              <p className="mt-3 text-center text-[13px] text-[#00010a]/60">{SUPPORT_EMAIL}</p>
+            </motion.div>
+          </div>
         </div>
       </section>
     </main>
@@ -1899,17 +2405,12 @@ function RegisterBanner() {
           </span>
           <p className="text-[13px] font-medium text-[#00010a] leading-snug truncate md:whitespace-normal">
             {t('banner.text')}{' '}
-            <a
-              href="/por-que-vincular"
-              className="font-bold text-[#5518c1] underline underline-offset-2 hover:text-[#8224e3] transition-colors duration-200"
-            >
-              {t('banner.link')}
-            </a>
+            <span className="font-bold text-[#00010a]">{t('banner.link')}</span>
           </p>
         </div>
         <div className="flex items-center gap-3 flex-shrink-0">
           <a
-            href="/vincula-tu-linea"
+            href="/por-que-vincular"
             className="text-[13px] font-bold text-[#5518c1] underline underline-offset-2 hover:text-[#8224e3] transition-all duration-200 whitespace-nowrap hover:scale-105 inline-block"
           >
             {t('banner.cta')}
@@ -2023,7 +2524,7 @@ export function App() {
             <Route path="/derechos-arco" component={ArcoPage} />
             <Route path="/por-que-vincular" component={PorQueVincularPage} />
             <Route path="/portabilidad" component={PortabilityPage} />
-            <Route path="/atencion" component={LandingPage} />
+            <Route path="/atencion" component={SupportPage} />
 
             {/* Account / registration flows (public) — shared account-ui. */}
             <Route path="/vincula-tu-linea"           component={CrtLanding}    lang={lang} registerPath="/vincula-tu-linea/registro" checkPath="/vincula-tu-linea/consultar" termsDoc={tycMd} privacyDoc={apMd} />

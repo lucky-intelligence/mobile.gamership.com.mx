@@ -11,8 +11,8 @@ export const landing = {
     whyChoose: {
       title: '¿Por qué elegir Gamership?',
       f1: {
-        title: 'Tres en uno, con cobertura optimizada',
-        desc: 'Tecnología triple carrier que te permite conectarte a cualquier red del país en caso de que tu video o juego este lento*',
+        title: 'Red 3 en 1 con cobertura optimizada',
+        desc: 'Tecnología multicarrier que te conecta a las principales redes del país. ¿No te agarran los datos? Cámbiate de red en un toque y sigue conectado.',
       },
       f2: {
         title: 'Disfruta tu Membresía Gamership',
@@ -101,6 +101,89 @@ export const landing = {
       title: 'Tráete tu número a Gamership',
       subtitle:
         'Cámbiate desde otra compañía y conserva el mismo número. Llena el formulario y nosotros nos encargamos del resto: es gratis y sin cortes de servicio.',
+      safety: {
+        title: 'Lo que debes saber antes de empezar',
+        s1: {
+          title: 'Tu número está protegido por ley',
+          body: 'El Instituto Federal de Telecomunicaciones regula cada portabilidad en México. El número te pertenece a ti, no a la compañía que te lo dio.',
+        },
+        s2: {
+          title: 'No lo haces solo',
+          body: 'Si te atoras en cualquier punto, escríbenos por WhatsApp y te acompañamos hasta que quede.',
+        },
+        s3: {
+          title: 'Puedes ver el avance',
+          before: 'Al iniciar el trámite recibes un folio. Con ese folio consultas el estatus cuando quieras en ',
+          link: 'portabilidad.mx',
+          after: ', el sitio oficial del IFT.',
+        },
+      },
+      steps: {
+        title: 'Cómo funciona',
+        subtitle: 'Llenar la solicitud te toma unos minutos. El resto es esperar.',
+        s1: {
+          title: 'Ten tu chip Gamership activo',
+          desc: 'Necesitas una línea Gamership funcionando para poder traer tu número a ella.',
+        },
+        s2: {
+          title: 'Pide tu NIP de portabilidad',
+          desc: 'Desde la línea telefónica que deseas portar envía un SMS al 051 con la palabra NIP y obtén el NIP de portabilidad. Es un código de cuatro dígitos con vigencia de cinco días.',
+        },
+        s3: {
+          title: 'Llena la solicitud',
+          desc: 'Nombre, correo, el número que traes, tu compañía actual y el NIP. Nosotros levantamos el trámite.',
+        },
+        s4: {
+          title: 'Espera la confirmación',
+          desc: 'Cuando tu chip anterior deje de dar servicio, significa que tu número ya está en Gamership. Ese es el aviso de que quedó.',
+        },
+      },
+      requirements: {
+        title: 'Qué necesitas tener a mano',
+        note: 'Tu celular debe estar liberado para funcionar con cualquier compañía.',
+        dataLabel: 'Tus datos',
+        lineLabel: 'De tu línea',
+        d1: 'Nombre completo del titular de la línea',
+        d2: 'Correo electrónico donde te podamos contactar',
+        d3: 'El número de diez dígitos que quieres conservar',
+        d4Before: 'Tu CURP, si la solicitud lo pide. Se consulta gratis en ',
+        d4Link: 'gob.mx/curp',
+        l1: 'Chip Gamership activado',
+        l2: 'Nombre de tu compañía actual',
+        l3: 'NIP de portabilidad de cuatro dígitos',
+      },
+      faq: {
+        title: 'Preguntas frecuentes',
+        q1: {
+          q: '¿Puedo perder mi número?',
+          a: 'No. Conservarlo es el objetivo del trámite y está garantizado por el IFT.',
+        },
+        q2: {
+          q: '¿Cuánto cuesta la portabilidad?',
+          a: 'El trámite de portabilidad no tiene costo. Pagas tu chip y el paquete que elijas, nada más. Los paquetes arrancan en 150 pesos con vigencia de 30 días.',
+        },
+        q3: {
+          q: '¿Me quedo sin servicio mientras se hace el cambio?',
+          a: 'Durante el trámite sigues usando tu línea Gamership. El cambio se ejecuta de madrugada, y es normal que tu chip anterior deje de funcionar de un día para otro. Eso significa que tu número ya quedó del lado de Gamership.',
+        },
+        q4: {
+          q: '¿Cuánto tarda?',
+          a: 'El trámite tarda hasta 24 horas hábiles. Cuando tu chip anterior deje de dar servicio, tu número ya está en Gamership.',
+        },
+        q5: {
+          q: '¿Y si algo se complica?',
+          a: 'Escríbenos por WhatsApp. Le damos seguimiento a tu solicitud hasta que quede resuelta.',
+        },
+        q6: {
+          q: '¿Puedo probar Gamership antes de decidirme?',
+          a: 'Sí. Te traes tu número, pruebas la red y la comunidad, y decides con la experiencia real en la mano. Tu número siempre es tuyo: si en algún momento quieres cambiarte, puedes portarlo a otra compañía cuando lo decidas. Nunca te amarramos.',
+        },
+      },
+      closing: {
+        title: '¿Te quedó alguna duda?',
+        body: 'Escríbenos por WhatsApp y te acompañamos en cada paso del trámite, hasta que tu número quede en Gamership.',
+        cta: 'Escribir por WhatsApp',
+      },
       form: {
         title: 'Solicita tu portabilidad',
         name: 'Nombre completo',
@@ -138,7 +221,7 @@ export const landing = {
       },
       steps: {
         eyebrow: 'Es muy sencillo',
-        title: 'Vincula tu línea en 4 pasos',
+        title: 'Vincula tu línea en 3 pasos',
         subtitle: 'Sin filas, sin papeleo. Solo tu número, tu identificación y tu cara de campeón.',
         stepLabel: 'Paso',
         doneLabel: 'Listo',
@@ -213,6 +296,56 @@ export const landing = {
         cta: 'Vincular mi línea ahora',
       },
     },
+    support: {
+      eyebrow: 'Atención a Cliente',
+      title: 'Estamos para ayudarte',
+      subtitle:
+        'Cuéntanos qué necesitas y te respondemos. Si prefieres algo más rápido, abajo están los canales directos.',
+      form: {
+        title: 'Mándanos un mensaje',
+        name: 'Nombre completo',
+        namePlaceholder: 'Tu nombre',
+        email: 'Correo electrónico',
+        emailPlaceholder: 'tucorreo@ejemplo.com',
+        phone: 'Teléfono',
+        phoneOptional: 'opcional',
+        phonePlaceholder: '10 dígitos',
+        topic: 'Motivo',
+        topicPlaceholder: 'Selecciona un motivo',
+        topics: {
+          billing: 'Pagos y facturación',
+          coverage: 'Cobertura o señal',
+          packages: 'Paquetes y recargas',
+          portability: 'Conservar mi número',
+          linkLine: 'Vinculación de línea',
+          other: 'Otro',
+        },
+        message: 'Cuéntanos qué pasa',
+        messagePlaceholder: 'Describe tu situación con el mayor detalle posible',
+        submit: 'Enviar mensaje',
+        successTitle: '¡Mensaje recibido!',
+        success: 'Te respondemos al correo que nos dejaste. Normalmente contestamos el mismo día.',
+      },
+      channels: {
+        title: 'Canales directos',
+        subtitle: 'Si lo tuyo es urgente, escríbenos por aquí.',
+        whatsapp: {
+          title: 'WhatsApp',
+          desc: 'Escríbenos y te contesta una persona del equipo. Es la vía más rápida.',
+          cta: 'Abrir WhatsApp',
+        },
+        arby: {
+          title: 'Agente Arby',
+          desc: 'Nuestro asistente resuelve dudas al instante, a cualquier hora.',
+          hint: 'Búscalo en el globo de chat, abajo a la derecha de tu pantalla.',
+        },
+        email: {
+          title: 'Correo',
+          desc: 'Para temas que requieren adjuntar comprobantes o documentos.',
+          cta: 'Escribir un correo',
+        },
+      },
+    },
     notFound: {
       title: 'Página no encontrada',
       cta: 'Volver al inicio',
@@ -231,7 +364,7 @@ export const landing = {
       title: 'Why choose Gamership?',
       f1: {
         title: 'Three in one, with optimized coverage',
-        desc: 'Triple carrier technology that lets you connect to any network in the country whenever your video or game slows down*',
+        desc: "Multicarrier technology that connects you to the country's main networks. Data not coming through? Switch networks in one tap and stay connected.",
       },
       f2: {
         title: 'Enjoy your Gamership Membership',
@@ -320,6 +453,89 @@ export const landing = {
       title: 'Bring your number to Gamership',
       subtitle:
         `Switch from another carrier and keep the same number. Fill out the form and we'll handle the rest — it's free and with no service downtime.`,
+      safety: {
+        title: 'What you should know before you start',
+        s1: {
+          title: 'Your number is protected by law',
+          body: 'The Federal Telecommunications Institute regulates every number transfer in Mexico. The number belongs to you, not to the carrier that gave it to you.',
+        },
+        s2: {
+          title: 'You are not doing this alone',
+          body: 'If you get stuck at any point, message us on WhatsApp and we will stay with you until it is done.',
+        },
+        s3: {
+          title: 'You can track the progress',
+          before: 'When you start the process you receive a reference number. With it you can check the status any time at ',
+          link: 'portabilidad.mx',
+          after: ', the official IFT site.',
+        },
+      },
+      steps: {
+        title: 'How it works',
+        subtitle: 'Filling out the request takes a few minutes. The rest is waiting.',
+        s1: {
+          title: 'Have your Gamership SIM active',
+          desc: 'You need a working Gamership line in order to bring your number over to it.',
+        },
+        s2: {
+          title: 'Request your transfer NIP',
+          desc: 'From the phone line you want to transfer, send an SMS to 051 with the word NIP and you will get your transfer NIP. It is a four-digit code valid for five days.',
+        },
+        s3: {
+          title: 'Fill out the request',
+          desc: 'Name, email, the number you are bringing, your current carrier and the NIP. We file the request for you.',
+        },
+        s4: {
+          title: 'Wait for confirmation',
+          desc: 'When your old SIM stops working, it means your number is already on Gamership. That is how you know it went through.',
+        },
+      },
+      requirements: {
+        title: 'What to have on hand',
+        note: 'Your phone must be unlocked so it works with any carrier.',
+        dataLabel: 'Your details',
+        lineLabel: 'About your line',
+        d1: 'Full name of the line holder',
+        d2: 'An email address where we can reach you',
+        d3: 'The ten-digit number you want to keep',
+        d4Before: 'Your CURP, if the request asks for it. You can look it up for free at ',
+        d4Link: 'gob.mx/curp',
+        l1: 'An activated Gamership SIM',
+        l2: 'The name of your current carrier',
+        l3: 'A four-digit transfer NIP',
+      },
+      faq: {
+        title: 'Frequently asked questions',
+        q1: {
+          q: 'Can I lose my number?',
+          a: 'No. Keeping it is the whole point of the process, and it is guaranteed by the IFT.',
+        },
+        q2: {
+          q: 'How much does the transfer cost?',
+          a: 'The transfer itself is free. You pay for your SIM and the package you choose, nothing else. Packages start at 150 pesos with 30-day validity.',
+        },
+        q3: {
+          q: 'Will I be without service while the change happens?',
+          a: 'During the process you keep using your Gamership line. The switch runs overnight, and it is normal for your old SIM to stop working from one day to the next. That means your number is already on the Gamership side.',
+        },
+        q4: {
+          q: 'How long does it take?',
+          a: 'The process takes up to 24 business hours. When your old SIM stops working, your number is already on Gamership.',
+        },
+        q5: {
+          q: 'What if something goes wrong?',
+          a: 'Message us on WhatsApp. We follow up on your request until it is resolved.',
+        },
+        q6: {
+          q: 'Can I try Gamership before committing?',
+          a: 'Yes. You bring your number over, try the network and the community, and decide with real experience in hand. Your number is always yours: if at some point you want to switch, you can transfer it to another carrier whenever you decide. We never lock you in.',
+        },
+      },
+      closing: {
+        title: 'Still have questions?',
+        body: 'Message us on WhatsApp and we will walk you through every step of the process, until your number is on Gamership.',
+        cta: 'Message us on WhatsApp',
+      },
       form: {
         title: 'Request your port-in',
         name: 'Full name',
@@ -357,7 +573,7 @@ export const landing = {
       },
       steps: {
         eyebrow: `It's this simple`,
-        title: 'Link your line in 4 steps',
+        title: 'Link your line in 3 steps',
         subtitle: 'No lines, no paperwork. Just your number, your ID, and your game face.',
         stepLabel: 'Step',
         doneLabel: 'Done',
@@ -430,6 +646,56 @@ export const landing = {
         subtitle:
           `Link your line before June 30 and stay connected to your network, your store, and your community. It takes less time than a match.`,
         cta: 'Link my line now',
+      },
+    },
+    support: {
+      eyebrow: 'Customer Support',
+      title: 'We are here to help',
+      subtitle:
+        'Tell us what you need and we will get back to you. If you want something faster, the direct channels are below.',
+      form: {
+        title: 'Send us a message',
+        name: 'Full name',
+        namePlaceholder: 'Your name',
+        email: 'Email address',
+        emailPlaceholder: 'you@example.com',
+        phone: 'Phone',
+        phoneOptional: 'optional',
+        phonePlaceholder: '10 digits',
+        topic: 'Topic',
+        topicPlaceholder: 'Pick a topic',
+        topics: {
+          billing: 'Payments and billing',
+          coverage: 'Coverage or signal',
+          packages: 'Packages and top-ups',
+          portability: 'Keeping my number',
+          linkLine: 'Line registration',
+          other: 'Something else',
+        },
+        message: 'Tell us what is going on',
+        messagePlaceholder: 'Describe your situation in as much detail as you can',
+        submit: 'Send message',
+        successTitle: 'Message received!',
+        success: 'We will reply to the email you gave us. We usually answer the same day.',
+      },
+      channels: {
+        title: 'Direct channels',
+        subtitle: 'If it is urgent, reach us here.',
+        whatsapp: {
+          title: 'WhatsApp',
+          desc: 'Message us and a real person from the team replies. This is the fastest route.',
+          cta: 'Open WhatsApp',
+        },
+        arby: {
+          title: 'Arby the agent',
+          desc: 'Our assistant answers questions instantly, at any hour.',
+          hint: 'Look for the chat bubble at the bottom right of your screen.',
+        },
+        email: {
+          title: 'Email',
+          desc: 'For anything that needs receipts or documents attached.',
+          cta: 'Write an email',
+        },
       },
     },
     notFound: {
