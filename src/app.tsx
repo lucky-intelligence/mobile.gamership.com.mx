@@ -1,3 +1,4 @@
+import type { ComponentChildren } from 'preact'
 import { useState, useEffect } from 'preact/hooks'
 import { motion } from 'motion/react'
 import { useTranslation } from 'react-i18next'
@@ -130,10 +131,16 @@ const FOOTER_LINKS = {
   compania: [
     { key: 'packages', href: '/paquetes' },
     { key: 'recharges', href: '/recargas' },
+    { key: 'linkLine', href: '/por-que-vincular' },
     { key: 'faq', href: '/explore' },
     { key: 'portability', href: '/telefonia/portabilidad/' },
     { key: 'activateSim', href: '#' },
     { key: 'helpCenter', href: '#' },
+  ],
+  legal: [
+    { key: 'terms', href: '/terminos-y-condiciones' },
+    { key: 'privacy', href: '/aviso-de-privacidad' },
+    { key: 'arco', href: '/derechos-arco' },
   ],
 } as const
 
@@ -461,7 +468,7 @@ function WhyChooseSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.15 }}
-              className="flex flex-col items-center text-center p-7 rounded-[24px] bg-[#f5f5ff] transition-shadow duration-300 hover:shadow-[0_12px_32px_rgba(85,24,193,0.10)] group cursor-default"
+              className="flex flex-col items-center text-center p-7 rounded-[24px] bg-white border border-[#e5e5f2] shadow-sm hover:shadow-xl transition-shadow duration-200 group cursor-default"
             >
               <div className="flex h-12 w-12 items-center justify-center rounded-[14px] bg-[#5518c1] text-white transition-transform duration-300 group-hover:scale-110">
                 {icon}
@@ -554,7 +561,7 @@ function PlanCard({ plan, index }: { plan: Plan; index: number }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className={`relative transition-all duration-200 hover:-translate-y-1 ${isEpic ? 'rounded-[25px] hover:shadow-xl' : 'rounded-[25px] overflow-hidden flex flex-col bg-white hover:shadow-xl'}`}
+      className={`relative transition-all duration-200 hover:-translate-y-1 ${isEpic ? 'rounded-[25px] hover:shadow-xl' : 'rounded-[25px] overflow-hidden flex flex-col bg-white border border-[#e5e5f2] shadow-sm hover:shadow-xl'}`}
     >
       {/* Sits outside BorderBeam: that wrapper clips overflow, and the pill
           deliberately overhangs the card's top edge. */}
@@ -717,7 +724,7 @@ function EcosystemSection() {
               >
                 <Tag
                   {...(item.href ? { href: item.href, target: '_blank', rel: 'noopener noreferrer' } : {})}
-                  className="group flex h-full flex-col items-center rounded-[24px] bg-[#f5f5ff] p-7 text-center transition-shadow duration-300 hover:shadow-[0_12px_32px_rgba(85,24,193,0.10)]"
+                  className="group flex h-full flex-col items-center rounded-[24px] bg-white border border-[#e5e5f2] p-7 text-center shadow-sm hover:shadow-xl transition-shadow duration-200"
                 >
                   {item.iconSrc ? (
                     <img
@@ -933,6 +940,629 @@ function RecargasPage() {
 }
 
 /* ============================================================
+   DERECHOS ARCO PAGE
+   Legal content is Spanish-only, matching src/assets/tyc.md and ap.md.
+   ============================================================ */
+const ARCO_RIGHTS = [
+  { name: 'Acceso', desc: 'Conocer qué datos personales tenemos sobre usted, para qué los usamos y las condiciones de su tratamiento.' },
+  { name: 'Rectificación', desc: 'Solicitar la corrección de sus datos cuando estén desactualizados, sean inexactos o incompletos.' },
+  { name: 'Cancelación', desc: 'Solicitar la eliminación de sus datos de nuestras bases de datos cuando sea procedente.' },
+  { name: 'Oposición', desc: 'Oponerse al uso de sus datos para fines específicos.' },
+] as const
+
+const ARCO_SERVICES = ['eShop', 'Gamership Mobile', 'Vinculación de Línea', 'Plataforma general', 'Otro'] as const
+
+const ARCO_REQUEST_TYPES = [
+  'Acceso',
+  'Rectificación',
+  'Cancelación',
+  'Oposición',
+  'Revocación del consentimiento',
+  'Limitación de uso',
+] as const
+
+function ArcoSection({ title, children }: { title: string; children: ComponentChildren }) {
+  return (
+    <section className="space-y-4">
+      <h2 className="text-[22px] md:text-[26px] font-bold text-[#5518c1]" style={{ fontFamily: 'var(--font-rubik)' }}>
+        {title}
+      </h2>
+      <div className="space-y-3 text-[15px] leading-relaxed text-[#444]">{children}</div>
+    </section>
+  )
+}
+
+const arcoFieldClass =
+  'w-full rounded-xl border border-[#e5e5f2] bg-white px-4 py-3 text-[14px] text-[#00010a] outline-none transition-colors duration-200 placeholder:text-[#aaa] focus:border-[#8224e3]'
+const arcoLabelClass = 'block text-[13px] font-semibold text-[#00010a]'
+
+function ArcoPage() {
+  useEffect(() => {
+    window.scrollTo({ top: 0 })
+  }, [])
+
+  return (
+    <main style={{ fontFamily: 'var(--font-manrope)' }}>
+      <section className="bg-[#F8F9FD] py-16">
+        <div className="mx-auto max-w-[860px] px-6 text-center">
+          <h1 className="text-[36px] md:text-[52px] font-extrabold leading-tight text-[#5518c1]" style={{ fontFamily: 'var(--font-rubik)' }}>
+            Derechos ARCO
+          </h1>
+          <p className="mt-3 text-[16px] md:text-[18px] text-[#555]">
+            Gamership — Ejercicio de Derechos de Protección de Datos Personales
+          </p>
+        </div>
+      </section>
+
+      <section className="bg-white py-16">
+        <div className="mx-auto max-w-[860px] px-6 space-y-14">
+          <ArcoSection title="¿Qué son los Derechos ARCO?">
+            <p>
+              Conforme a la Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP),
+              usted tiene derecho a:
+            </p>
+            <div className="grid gap-4 sm:grid-cols-2">
+              {ARCO_RIGHTS.map((r) => (
+                <div key={r.name} className="rounded-[18px] border border-[#e5e5f2] bg-white p-5 shadow-sm">
+                  <p className="text-[15px] font-bold text-[#5518c1]" style={{ fontFamily: 'var(--font-rubik)' }}>
+                    {r.name}
+                  </p>
+                  <p className="mt-1.5 text-[14px] leading-relaxed text-[#555]">{r.desc}</p>
+                </div>
+              ))}
+            </div>
+            <p className="pt-1">Adicionalmente, usted puede:</p>
+            <ul className="list-disc space-y-1.5 pl-5">
+              <li>
+                <strong className="text-[#00010a]">Revocar su consentimiento</strong> para el tratamiento de sus datos
+                personales en cualquier momento.
+              </li>
+              <li>
+                <strong className="text-[#00010a]">Limitar el uso o divulgación</strong> de sus datos personales.
+              </li>
+            </ul>
+          </ArcoSection>
+
+          <ArcoSection title="¿Quién puede ejercer estos derechos?">
+            <ul className="list-disc space-y-1.5 pl-5">
+              <li>
+                El <strong className="text-[#00010a]">Titular</strong> de los datos personales, presentando
+                identificación oficial vigente.
+              </li>
+              <li>
+                Un <strong className="text-[#00010a]">representante legal</strong>, acreditando su representación
+                mediante poder notarial o carta poder firmada ante dos testigos, acompañada de identificación oficial de
+                ambas partes.
+              </li>
+            </ul>
+          </ArcoSection>
+
+          <ArcoSection title="¿Cómo ejercerlos?">
+            <p>Tiene tres opciones para presentar su solicitud:</p>
+            <ol className="space-y-4">
+              <li className="rounded-[18px] border border-[#e5e5f2] bg-white p-5 shadow-sm">
+                <p className="text-[15px] font-bold text-[#5518c1]" style={{ fontFamily: 'var(--font-rubik)' }}>
+                  1. Formulario en línea
+                </p>
+                <p className="mt-1.5 text-[14px] leading-relaxed text-[#555]">
+                  Complete el formulario al final de esta página. Es la vía más rápida y recibirá confirmación
+                  automática.
+                </p>
+              </li>
+              <li className="rounded-[18px] border border-[#e5e5f2] bg-white p-5 shadow-sm">
+                <p className="text-[15px] font-bold text-[#5518c1]" style={{ fontFamily: 'var(--font-rubik)' }}>
+                  2. Correo electrónico
+                </p>
+                <p className="mt-1.5 text-[14px] leading-relaxed text-[#555]">
+                  Envíe su solicitud a{' '}
+                  <a href="mailto:legal@gamership.com.mx" className="font-semibold text-[#5518c1] hover:text-[#8224e3]">
+                    legal@gamership.com.mx
+                  </a>{' '}
+                  con el asunto: <strong className="text-[#00010a]">"Solicitud Derechos ARCO"</strong>
+                </p>
+              </li>
+              <li className="rounded-[18px] border border-[#e5e5f2] bg-white p-5 shadow-sm">
+                <p className="text-[15px] font-bold text-[#5518c1]" style={{ fontFamily: 'var(--font-rubik)' }}>
+                  3. Correo postal
+                </p>
+                <p className="mt-1.5 text-[14px] leading-relaxed text-[#555]">
+                  Dirija su solicitud al Departamento Legal de Gamership: General Mariano Escobedo 510, Interior 801,
+                  Colonia Anzures, Alcaldía Miguel Hidalgo, C.P. 11590, Ciudad de México.
+                </p>
+              </li>
+            </ol>
+          </ArcoSection>
+
+          <ArcoSection title="¿Qué debe incluir su solicitud?">
+            <ul className="list-disc space-y-1.5 pl-5">
+              <li>Nombre completo del Titular</li>
+              <li>Correo electrónico o domicilio para recibir la respuesta</li>
+              <li>Copia de identificación oficial vigente del Titular y, en su caso, del representante legal</li>
+              <li>Descripción clara y precisa de los datos sobre los que desea ejercer su derecho</li>
+              <li>Cualquier documento que facilite la localización de sus datos</li>
+            </ul>
+          </ArcoSection>
+
+          <ArcoSection title="Plazos de atención">
+            <div className="overflow-x-auto">
+              <table className="w-full border-collapse overflow-hidden rounded-[14px] border border-[#e5e5f2] text-left text-[14px]">
+                <thead>
+                  <tr className="bg-[#f5f5ff]">
+                    <th className="px-5 py-3 font-bold text-[#5518c1]" style={{ fontFamily: 'var(--font-rubik)' }}>Etapa</th>
+                    <th className="px-5 py-3 font-bold text-[#5518c1]" style={{ fontFamily: 'var(--font-rubik)' }}>Plazo</th>
+                  </tr>
+                </thead>
+                <tbody className="text-[#555]">
+                  <tr className="border-t border-[#e5e5f2]">
+                    <td className="px-5 py-3">Confirmación de recepción</td>
+                    <td className="px-5 py-3">24 horas</td>
+                  </tr>
+                  <tr className="border-t border-[#e5e5f2]">
+                    <td className="px-5 py-3">Respuesta a su solicitud</td>
+                    <td className="px-5 py-3">Máximo 20 días hábiles</td>
+                  </tr>
+                  <tr className="border-t border-[#e5e5f2]">
+                    <td className="px-5 py-3">Ejecución de la resolución</td>
+                    <td className="px-5 py-3">15 días hábiles posteriores a la respuesta</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              El ejercicio de los Derechos ARCO es <strong className="text-[#00010a]">gratuito</strong>.
+            </p>
+            <p>
+              En caso de que su solicitud sea incompleta, le notificaremos dentro de los 5 días hábiles siguientes para
+              que aporte los elementos faltantes. Contará con 10 días hábiles para atender dicho requerimiento; de no
+              hacerlo, su solicitud se tendrá por no presentada.
+            </p>
+          </ArcoSection>
+
+          <ArcoSection title="Limitaciones al ejercicio de derechos">
+            <p>La Cancelación de datos no procederá cuando:</p>
+            <ul className="list-disc space-y-1.5 pl-5">
+              <li>Deban conservarse por disposición legal</li>
+              <li>Obstaculicen actuaciones judiciales o administrativas</li>
+              <li>Sean necesarios para proteger intereses jurídicos del Titular</li>
+              <li>Sean necesarios para cumplir con una obligación legalmente adquirida</li>
+            </ul>
+            <p>
+              En el caso de datos vinculados a una línea de telefonía móvil, la cancelación puede implicar la suspensión
+              del servicio conforme a la normativa de la CRT.
+            </p>
+          </ArcoSection>
+
+          <ArcoSection title="Revocación del consentimiento">
+            <p>
+              Usted puede revocar su consentimiento para el tratamiento de sus datos en cualquier momento, sin efectos
+              retroactivos. La revocación deberá realizarse a través de los mismos canales indicados anteriormente.
+            </p>
+          </ArcoSection>
+
+          <ArcoSection title="Autoridad competente">
+            <p>Si considera que su solicitud no fue atendida correctamente, puede acudir ante:</p>
+            <p>
+              <strong className="text-[#00010a]">Unidad de Protección de Datos Personales (UPDP)</strong>
+              <br />
+              Secretaría Anticorrupción y Buen Gobierno (SABG)
+            </p>
+            <p>
+              O ante el{' '}
+              <strong className="text-[#00010a]">
+                Instituto Nacional de Transparencia, Acceso a la Información y Protección de Datos Personales (INAI)
+              </strong>
+              .
+            </p>
+          </ArcoSection>
+
+          <ArcoRequestForm />
+
+          <div className="border-t border-[#e5e5f2] pt-8 text-center text-[13px] leading-relaxed text-[#888]">
+            <p>
+              Contacto:{' '}
+              <a href="mailto:legal@gamership.com.mx" className="font-semibold text-[#5518c1] hover:text-[#8224e3]">
+                legal@gamership.com.mx
+              </a>
+            </p>
+            <p>Fecha de última actualización: 01 de julio de 2026</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  )
+}
+
+function ArcoRequestForm() {
+  const [isRepresentative, setIsRepresentative] = useState(false)
+
+  return (
+    <section id="formulario" className="scroll-mt-24 rounded-[24px] border border-[#e5e5f2] bg-white p-6 shadow-sm md:p-8">
+      <h2 className="text-[22px] md:text-[26px] font-bold text-[#5518c1]" style={{ fontFamily: 'var(--font-rubik)' }}>
+        Formulario de solicitud
+      </h2>
+      <p className="mt-2 text-[14px] leading-relaxed text-[#555]">
+        Al enviarse la solicitud, se generará un número de folio único y se notificará al correo registrado dentro de
+        las 24 horas siguientes.
+      </p>
+
+      {/* Submission is intentionally inert — there is no backend for this form yet. */}
+      <div className="mt-7 space-y-5">
+        <div className="grid gap-5 sm:grid-cols-2">
+          <div className="space-y-1.5">
+            <label className={arcoLabelClass} htmlFor="arco-name">
+              Nombre completo del Titular *
+            </label>
+            <input id="arco-name" type="text" className={arcoFieldClass} placeholder="Nombre y apellidos" />
+          </div>
+          <div className="space-y-1.5">
+            <label className={arcoLabelClass} htmlFor="arco-email">
+              Correo electrónico de contacto *
+            </label>
+            <input id="arco-email" type="email" className={arcoFieldClass} placeholder="correo@ejemplo.com" />
+          </div>
+          <div className="space-y-1.5">
+            <label className={arcoLabelClass} htmlFor="arco-phone">
+              Teléfono <span className="font-normal text-[#888]">(opcional)</span>
+            </label>
+            <input id="arco-phone" type="tel" className={arcoFieldClass} placeholder="10 dígitos" />
+          </div>
+          <div className="space-y-1.5">
+            <label className={arcoLabelClass} htmlFor="arco-service">
+              Servicio relacionado *
+            </label>
+            <select id="arco-service" className={arcoFieldClass}>
+              <option value="">Selecciona una opción</option>
+              {ARCO_SERVICES.map((s) => (
+                <option key={s} value={s}>
+                  {s}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        <fieldset className="space-y-2.5">
+          <legend className={arcoLabelClass}>Derecho que desea ejercer *</legend>
+          <div className="grid gap-2.5 sm:grid-cols-2">
+            {ARCO_REQUEST_TYPES.map((r) => (
+              <label key={r} className="flex cursor-pointer items-center gap-2.5 text-[14px] text-[#444]">
+                <input type="checkbox" className="h-4 w-4 accent-[#5518c1]" />
+                {r}
+              </label>
+            ))}
+          </div>
+        </fieldset>
+
+        <div className="space-y-1.5">
+          <label className={arcoLabelClass} htmlFor="arco-desc">
+            Descripción de la solicitud *
+          </label>
+          <textarea
+            id="arco-desc"
+            rows={4}
+            className={`${arcoFieldClass} resize-y`}
+            placeholder="Qué datos, en qué contexto y qué acción desea que tomemos"
+          />
+        </div>
+
+        <div className="space-y-1.5">
+          <label className={arcoLabelClass} htmlFor="arco-id">
+            Identificación oficial vigente *
+          </label>
+          <input id="arco-id" type="file" accept=".pdf,.jpg,.jpeg,.png" className={`${arcoFieldClass} py-2.5`} />
+          <p className="text-[12px] text-[#888]">INE/IFE, pasaporte o FM3 — PDF, JPG o PNG, máx. 5 MB.</p>
+        </div>
+
+        <div className="rounded-[18px] border border-[#e5e5f2] bg-[#f5f5ff] p-5">
+          <label className="flex cursor-pointer items-start gap-2.5 text-[14px] font-semibold text-[#00010a]">
+            <input
+              type="checkbox"
+              className="mt-0.5 h-4 w-4 accent-[#5518c1]"
+              checked={isRepresentative}
+              onChange={(e) => setIsRepresentative((e.target as HTMLInputElement).checked)}
+            />
+            Actúo como representante legal del Titular
+          </label>
+
+          {isRepresentative && (
+            <div className="mt-5 space-y-5">
+              <div className="grid gap-5 sm:grid-cols-2">
+                <div className="space-y-1.5">
+                  <label className={arcoLabelClass} htmlFor="arco-rep-name">
+                    Nombre completo del representante *
+                  </label>
+                  <input id="arco-rep-name" type="text" className={arcoFieldClass} placeholder="Nombre y apellidos" />
+                </div>
+                <div className="space-y-1.5">
+                  <label className={arcoLabelClass} htmlFor="arco-rep-email">
+                    Correo electrónico del representante *
+                  </label>
+                  <input id="arco-rep-email" type="email" className={arcoFieldClass} placeholder="correo@ejemplo.com" />
+                </div>
+              </div>
+              <div className="space-y-1.5">
+                <label className={arcoLabelClass} htmlFor="arco-rep-doc">
+                  Documento de representación *
+                </label>
+                <input id="arco-rep-doc" type="file" accept=".pdf,.jpg,.jpeg,.png" className={`${arcoFieldClass} py-2.5`} />
+                <p className="text-[12px] text-[#888]">Poder notarial o carta poder firmada ante dos testigos.</p>
+              </div>
+            </div>
+          )}
+        </div>
+
+        <label className="flex cursor-pointer items-start gap-2.5 text-[14px] leading-relaxed text-[#444]">
+          <input type="checkbox" className="mt-1 h-4 w-4 shrink-0 accent-[#5518c1]" />
+          <span>
+            Declaro haber leído y aceptado el{' '}
+            <a href="/aviso-de-privacidad" className="font-semibold text-[#5518c1] hover:text-[#8224e3]">
+              Aviso de Privacidad
+            </a>{' '}
+            de Gamership y que la información proporcionada es verídica y corresponde a mi identidad.
+          </span>
+        </label>
+
+        <button
+          type="button"
+          onClick={() => {}}
+          className="w-full rounded-full bg-[#5518c1] py-4 text-[14px] font-semibold uppercase text-white transition-all duration-200 hover:bg-[#8224e3] hover:scale-[1.01] active:scale-[0.99] cursor-pointer"
+          style={{ fontFamily: 'var(--font-rubik)' }}
+        >
+          Enviar solicitud
+        </button>
+      </div>
+    </section>
+  )
+}
+
+/* ============================================================
+   POR QUÉ VINCULAR PAGE (/por-que-vincular) — RNU info + FAQ
+   ============================================================ */
+const LINK_LINE_STEP_KEYS = ['s1', 's2', 's3', 's4'] as const
+
+const LINK_LINE_STEP_ICONS = [
+  <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="7" y="2" width="10" height="20" rx="2" /><path d="M11 18h2" />
+  </svg>,
+  <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="2" y="5" width="20" height="14" rx="2" /><circle cx="8" cy="11" r="2" /><path d="M14 10h4M14 13h3M6 16h6" />
+  </svg>,
+  <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="9" /><circle cx="12" cy="10" r="2.5" /><path d="M7.5 18a4.5 4.5 0 0 1 9 0" />
+  </svg>,
+  <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M5 13l4 4L19 7" />
+  </svg>,
+]
+
+const LINK_LINE_FAQ_KEYS = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10'] as const
+
+// q2's answer is a deadline schedule keyed by the last digit of the phone
+// number; it reads far better as a table than as a run-on paragraph.
+const LINK_LINE_DEADLINE_DIGITS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'] as const
+
+function PorQueVincularPage() {
+  const { t } = useTranslation('landing')
+  const [openFaq, setOpenFaq] = useState(0)
+  useEffect(() => {
+    window.scrollTo({ top: 0 })
+  }, [])
+
+  function scrollToFaq() {
+    const el = document.getElementById('por-que-vincular-faq')
+    if (!el) return
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 90, behavior: reduce ? 'auto' : 'smooth' })
+  }
+
+  return (
+    <main>
+      {/* HERO */}
+      <section className="relative overflow-hidden text-white" style={{ background: 'radial-gradient(120% 140% at 80% 0%, #8224e3 0%, #5518c1 42%, #2d0a63 100%)' }}>
+        <div className="mx-auto max-w-[900px] px-6 pt-24 pb-16 text-center" style={{ fontFamily: 'var(--font-manrope)' }}>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+            className="space-y-5"
+          >
+            <h1 className="text-[36px] md:text-[56px] font-black uppercase leading-tight tracking-tight" style={{ fontFamily: 'var(--font-rubik)' }}>
+              <span className="text-[#50fbd2]">{t('linkLine.hero.title')}</span>{' '}
+              <span className="text-white">{t('linkLine.hero.titleHighlight')}</span>
+            </h1>
+            <p className="mx-auto max-w-[560px] text-[16px] md:text-[18px] leading-relaxed text-white/80">
+              {t('linkLine.hero.subtitle')}
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-2" style={{ fontFamily: 'var(--font-rubik)' }}>
+              <a
+                href="/vincula-tu-linea/registro"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#50fbd2] px-7 py-3.5 text-[15px] font-bold text-[#00010a] transition-all duration-200 hover:scale-105 active:scale-95"
+              >
+                {t('linkLine.hero.ctaPrimary')}
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+              </a>
+              <a
+                href="/vincula-tu-linea/consultar"
+                className="inline-flex items-center justify-center rounded-full border-2 border-white/30 bg-white/10 px-7 py-3.5 text-[15px] font-bold text-white backdrop-blur transition-all duration-200 hover:bg-white/20 hover:scale-105 active:scale-95"
+              >
+                {t('linkLine.hero.ctaSecondary')}
+              </a>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* OFFICIAL NOTICE */}
+      <section className="border-y border-[#ececec] bg-[#F8F9FD]">
+        <div className="mx-auto max-w-[1000px] px-6 py-6 flex flex-wrap items-center justify-center gap-4 text-center">
+          <span className="inline-flex h-9 w-9 flex-none items-center justify-center rounded-[10px] bg-[#5518c11a] text-[#5518c1]">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" />
+              <path d="M9 12l2 2 4-4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </span>
+          <p className="max-w-[640px] text-[14px] leading-relaxed text-[#00010a]">
+            {t('linkLine.notice.before')}<strong className="text-[#5518c1]">{t('linkLine.notice.highlight')}</strong>{t('linkLine.notice.after')}
+          </p>
+          <button
+            type="button"
+            onClick={scrollToFaq}
+            className="cursor-pointer whitespace-nowrap text-[13px] font-bold text-[#5518c1] transition-colors hover:text-[#8224e3]"
+          >
+            {t('linkLine.notice.cta')}
+          </button>
+        </div>
+      </section>
+
+      {/* STEPS */}
+      <section className="bg-white py-20" style={{ fontFamily: 'var(--font-manrope)' }}>
+        <div className="mx-auto max-w-[1280px] px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mx-auto mb-14 max-w-[640px] text-center"
+          >
+            <p className="text-[12px] font-bold uppercase tracking-[.14em] text-[#5518c1]" style={{ fontFamily: 'var(--font-rubik)' }}>
+              {t('linkLine.steps.eyebrow')}
+            </p>
+            <h2 className="mt-3 text-[28px] md:text-[40px] font-extrabold uppercase text-[#5518c1]" style={{ fontFamily: 'var(--font-rubik)' }}>
+              {t('linkLine.steps.title')}
+            </h2>
+            <p className="mt-3 text-[15px] text-[#666]">{t('linkLine.steps.subtitle')}</p>
+          </motion.div>
+
+          <div className="mx-auto grid max-w-[1040px] grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {LINK_LINE_STEP_KEYS.map((key, i) => {
+              const last = i === LINK_LINE_STEP_KEYS.length - 1
+              return (
+                <motion.div
+                  key={key}
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.08 }}
+                  className={`flex flex-col items-center rounded-[25px] p-7 text-center transition-all duration-200 hover:-translate-y-1 ${last ? 'bg-[#5518c1] shadow-xl' : 'bg-[#f5f5ff] hover:shadow-xl'}`}
+                >
+                  <span className={`text-[20px] font-extrabold ${last ? 'text-[#50fbd2]' : 'text-[#5518c1]'}`} style={{ fontFamily: 'var(--font-rubik)' }}>
+                    {last ? t('linkLine.steps.doneLabel') : `${t('linkLine.steps.stepLabel')} ${i + 1}`}
+                  </span>
+                  <div className={`my-4 flex h-[52px] w-[52px] items-center justify-center rounded-2xl ${last ? 'bg-[#50fbd2] text-[#00010a]' : 'bg-white text-[#5518c1]'}`}>
+                    {LINK_LINE_STEP_ICONS[i]}
+                  </div>
+                  <h3 className={`mb-1.5 text-[15px] font-bold ${last ? 'text-white' : 'text-[#5518c1]'}`} style={{ fontFamily: 'var(--font-rubik)' }}>
+                    {t(`linkLine.steps.${key}.title`)}
+                  </h3>
+                  <p className={`text-[13px] leading-relaxed ${last ? 'text-white/80' : 'text-[#555]'}`}>
+                    {t(`linkLine.steps.${key}.desc`)}
+                  </p>
+                </motion.div>
+              )
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section id="por-que-vincular-faq" className="border-t border-[#ececec] bg-[#f5f5ff] py-20">
+        <div className="mx-auto max-w-[840px] px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-12 text-center"
+          >
+            <p className="text-[12px] font-bold uppercase tracking-[.14em] text-[#5518c1]" style={{ fontFamily: 'var(--font-rubik)' }}>
+              {t('linkLine.faq.eyebrow')}
+            </p>
+            <h2 className="mt-3 text-[28px] md:text-[40px] font-extrabold uppercase text-[#5518c1]" style={{ fontFamily: 'var(--font-rubik)' }}>
+              {t('linkLine.faq.title')}
+            </h2>
+          </motion.div>
+
+          <div className="space-y-3">
+            {LINK_LINE_FAQ_KEYS.map((key, i) => {
+              const open = openFaq === i
+              return (
+                <div key={key} className={`overflow-hidden rounded-[20px] border bg-white ${open ? 'border-[#8224e3]' : 'border-transparent'}`}>
+                  <button
+                    type="button"
+                    onClick={() => setOpenFaq(open ? -1 : i)}
+                    className="flex w-full cursor-pointer items-center gap-4 px-5 py-4 text-left"
+                  >
+                    <span className="w-6 flex-none text-[13px] font-extrabold text-[#5518c1]" style={{ fontFamily: 'var(--font-rubik)' }}>
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <span className="flex-1 text-[15px] font-semibold text-[#00010a]">{t(`linkLine.faq.${key}.q`)}</span>
+                    <span className={`flex h-7 w-7 flex-none items-center justify-center rounded-full text-[18px] font-bold transition-colors ${open ? 'bg-[#5518c1] text-white' : 'bg-[#5518c11a] text-[#5518c1]'}`}>
+                      {open ? '–' : '+'}
+                    </span>
+                  </button>
+                  {open && (
+                    <div className="px-5 pb-5 pl-[62px] text-[14px] leading-relaxed text-[#555]">
+                      <p className="whitespace-pre-line">{t(`linkLine.faq.${key}.a`)}</p>
+
+                      {key === 'q2' && (
+                        <>
+                          <div className="mt-4 overflow-x-auto">
+                            <table className="w-full max-w-[440px] border-collapse overflow-hidden rounded-[12px] border border-[#e5e5f2] text-left text-[13px]">
+                              <thead>
+                                <tr className="bg-[#f5f5ff]">
+                                  <th className="px-4 py-2.5 font-bold text-[#5518c1]" style={{ fontFamily: 'var(--font-rubik)' }}>
+                                    {t('linkLine.faq.deadlines.headerDigit')}
+                                  </th>
+                                  <th className="px-4 py-2.5 font-bold text-[#5518c1]" style={{ fontFamily: 'var(--font-rubik)' }}>
+                                    {t('linkLine.faq.deadlines.headerDate')}
+                                  </th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {LINK_LINE_DEADLINE_DIGITS.map((d) => (
+                                  <tr key={d} className="border-t border-[#e5e5f2]">
+                                    <td className="px-4 py-2 text-center text-[15px] font-extrabold text-[#00010a]" style={{ fontFamily: 'var(--font-rubik)' }}>
+                                      {d}
+                                    </td>
+                                    <td className="px-4 py-2">{t(`linkLine.faq.deadlines.d${d}`)}</td>
+                                  </tr>
+                                ))}
+                              </tbody>
+                            </table>
+                          </div>
+                          <p className="mt-3">{t('linkLine.faq.q2.note')}</p>
+                        </>
+                      )}
+                    </div>
+                  )}
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* FINAL CTA */}
+      <section className="text-center text-white" style={{ background: 'radial-gradient(120% 160% at 20% 0%, #8224e3 0%, #5518c1 45%, #2d0a63 100%)' }}>
+        <div className="mx-auto max-w-[760px] px-6 py-20" style={{ fontFamily: 'var(--font-manrope)' }}>
+          <h2 className="text-[28px] md:text-[42px] font-black uppercase leading-tight" style={{ fontFamily: 'var(--font-rubik)' }}>
+            {t('linkLine.final.title')}
+          </h2>
+          <p className="mx-auto mt-4 max-w-[520px] text-[16px] md:text-[18px] leading-relaxed text-white/80">
+            {t('linkLine.final.subtitle')}
+          </p>
+          <a
+            href="/vincula-tu-linea/registro"
+            className="mt-8 inline-flex items-center justify-center rounded-full bg-[#50fbd2] px-9 py-4 text-[15px] font-bold text-[#00010a] transition-all duration-200 hover:scale-105 active:scale-95"
+            style={{ fontFamily: 'var(--font-rubik)' }}
+          >
+            {t('linkLine.final.cta')}
+          </a>
+        </div>
+      </section>
+    </main>
+  )
+}
+
+/* ============================================================
    FOOTER
    ============================================================ */
 function Footer() {
@@ -940,7 +1570,7 @@ function Footer() {
   return (
     <footer className="bg-[#06041C] text-white py-16" style={{ fontFamily: 'var(--font-manrope)' }}>
       <div className="mx-auto max-w-[1280px] px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
           <div className="space-y-4">
             <img
               src="/gm-site/logo.webp"
@@ -971,6 +1601,19 @@ function Footer() {
             <h6 className="text-[13px] font-bold tracking-widest uppercase text-[#50fbd2]">{t('footer.companyTitle')}</h6>
             <ul className="space-y-2">
               {FOOTER_LINKS.compania.map((link) => (
+                <li key={link.key}>
+                  <a href={link.href} className="text-[13px] text-[#ffffff99] hover:text-white transition-all duration-200 hover:translate-x-1 inline-block">
+                    {t(`footer.links.${link.key}`)}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="space-y-4">
+            <h6 className="text-[13px] font-bold tracking-widest uppercase text-[#50fbd2]">{t('footer.legalTitle')}</h6>
+            <ul className="space-y-2">
+              {FOOTER_LINKS.legal.map((link) => (
                 <li key={link.key}>
                   <a href={link.href} className="text-[13px] text-[#ffffff99] hover:text-white transition-all duration-200 hover:translate-x-1 inline-block">
                     {t(`footer.links.${link.key}`)}
@@ -1051,7 +1694,13 @@ function RegisterBanner() {
             </svg>
           </span>
           <p className="text-[13px] font-medium text-[#00010a] leading-snug truncate md:whitespace-normal">
-            {t('banner.text')}
+            {t('banner.text')}{' '}
+            <a
+              href="/por-que-vincular"
+              className="font-bold text-[#5518c1] underline underline-offset-2 hover:text-[#8224e3] transition-colors duration-200"
+            >
+              {t('banner.link')}
+            </a>
           </p>
         </div>
         <div className="flex items-center gap-3 flex-shrink-0">
@@ -1173,6 +1822,8 @@ export function App() {
             {/* Landing-section routes: render the landing and scroll to the section. */}
             <Route path="/paquetes" component={LandingPage} />
             <Route path="/recargas" component={RecargasPage} />
+            <Route path="/derechos-arco" component={ArcoPage} />
+            <Route path="/por-que-vincular" component={PorQueVincularPage} />
             <Route path="/portabilidad" component={LandingPage} />
             <Route path="/atencion" component={LandingPage} />
 
