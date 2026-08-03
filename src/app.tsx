@@ -133,7 +133,7 @@ const FOOTER_LINKS = {
     { key: 'recharges', href: '/recargas' },
     { key: 'linkLine', href: '/por-que-vincular' },
     { key: 'faq', href: '/explore' },
-    { key: 'portability', href: '/telefonia/portabilidad/' },
+    { key: 'portability', href: '/portabilidad' },
     { key: 'activateSim', href: '#' },
     { key: 'helpCenter', href: '#' },
   ],
@@ -653,9 +653,7 @@ function PlansSection() {
           viewport={{ once: true }}
           className="mt-10 max-w-[800px] mx-auto text-center space-y-2 text-[12px] text-[#666]"
         >
-          <p>
-            {t('plans.note1')} <strong>{t('plans.note1Mobility')}</strong>
-          </p>
+          <p>{t('plans.note1')}</p>
           <p>{t('plans.note2')}</p>
         </motion.div>
       </div>
@@ -756,12 +754,14 @@ function EcosystemSection() {
 /* ============================================================
    RECARGAS PAGE (independent route — not part of LandingPage)
    ============================================================ */
-type Recarga = { key: string; gb: string; price: string }
+// `id` must match the API's `PackagesId` exactly (not `IdPackage`): the
+// dashboard looks the package up with `pkgs.find(p => p.PackagesId === pkg)`.
+type Recarga = { key: string; id: string; gb: string; price: string }
 
 const RECARGAS: Recarga[] = [
-  { key: 'loot2', gb: '2GB', price: '79.00' },
-  { key: 'loot4', gb: '4GB', price: '149.00' },
-  { key: 'loot5', gb: '5GB', price: '179.00' },
+  { key: 'loot2', id: 'Gamership_Data_Loot_2GB', gb: '2GB', price: '79.00' },
+  { key: 'loot4', id: 'Gamership_Data_Loot_4GB', gb: '4GB', price: '149.00' },
+  { key: 'loot5', id: 'Gamership_Data_Loot_5GB', gb: '5GB', price: '179.00' },
 ]
 
 /* Icons size to their wrapper (h-full/w-full) and inherit its color, so each
@@ -856,8 +856,11 @@ function RecargaCard({ recarga, index }: { recarga: Recarga; index: number }) {
 
           <div className="px-6 py-6 bg-[#50fbd2] text-center">
             <a
-              href="/dashboard"
-              className="block w-full text-center rounded-full bg-[#5518c1] py-4 text-[13px] font-medium uppercase text-white transition-all duration-200 hover:bg-[#8224e3] hover:scale-[1.02] active:scale-[0.98]"
+              onClick={() => {
+                localStorage.setItem('package', recarga.id)
+                window.location.href = '/dashboard'
+              }}
+              className="block w-full cursor-pointer text-center rounded-full bg-[#5518c1] py-4 text-[13px] font-medium uppercase text-white transition-all duration-200 hover:bg-[#8224e3] hover:scale-[1.02] active:scale-[0.98]"
               style={{ fontFamily: 'var(--font-rubik)' }}
             >
               {t('recargas.cta')}
@@ -894,8 +897,11 @@ function RecargaCard({ recarga, index }: { recarga: Recarga; index: number }) {
 
           <div className="px-6 py-6 bg-[#50fbd2] text-center">
             <a
-              href="/dashboard"
-              className="block w-full text-center rounded-full bg-[#5518c1] py-4 text-[13px] font-medium uppercase text-white transition-all duration-200 hover:bg-[#8224e3] hover:scale-[1.02] active:scale-[0.98]"
+              onClick={() => {
+                localStorage.setItem('package', recarga.id)
+                window.location.href = '/dashboard'
+              }}
+              className="block w-full cursor-pointer text-center rounded-full bg-[#5518c1] py-4 text-[13px] font-medium uppercase text-white transition-all duration-200 hover:bg-[#8224e3] hover:scale-[1.02] active:scale-[0.98]"
               style={{ fontFamily: 'var(--font-rubik)' }}
             >
               {t('recargas.cta')}
@@ -933,6 +939,142 @@ function RecargasPage() {
               <RecargaCard key={recarga.gb} recarga={recarga} index={i} />
             ))}
           </div>
+        </div>
+      </section>
+    </main>
+  )
+}
+
+/* ============================================================
+   PORTABILITY PAGE (/portabilidad) — port-in form
+   ============================================================ */
+const CARRIERS = ['Telcel', 'AT&T', 'Movistar', 'Bait', 'Unefon', 'Virgin Mobile', 'Pillofón', 'Flash Mobile', 'Otra']
+
+function PortabilityForm() {
+  const { t } = useTranslation('landing')
+  const [form, setForm] = useState({ name: '', email: '', phone: '', carrier: '', nip: '' })
+  const [accepted, setAccepted] = useState(false)
+  const [submitted, setSubmitted] = useState(false)
+
+  const set = (field: keyof typeof form) => (e: Event) => {
+    const target = e.currentTarget as HTMLInputElement | HTMLSelectElement
+    setForm((f) => ({ ...f, [field]: target.value }))
+  }
+
+  const onSubmit = (e: Event) => {
+    e.preventDefault()
+    // TODO: enviar `form` a la API de portabilidad cuando el endpoint esté disponible.
+    setSubmitted(true)
+  }
+
+  const inputClass =
+    'w-full rounded-xl border border-[#e5e5ef] bg-white px-4 py-3 text-[15px] text-[#00010a] placeholder:text-[#00010a66] outline-none transition-colors focus:border-[#5518c1] focus:ring-2 focus:ring-[#5518c1]/20'
+  const labelClass = 'block text-[13px] font-semibold text-[#00010a] mb-1.5'
+
+  if (submitted) {
+    return (
+      <motion.div
+        initial={{ opacity: 0, scale: 0.96 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.4, ease: 'easeOut' }}
+        className="mx-auto max-w-[560px] rounded-[25px] bg-white p-10 text-center shadow-lg"
+      >
+        <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-[#50fbd2]">
+          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#5518c1" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M20 6 9 17l-5-5" />
+          </svg>
+        </div>
+        <h3 className="text-[24px] font-bold text-[#5518c1]" style={{ fontFamily: 'var(--font-rubik)' }}>
+          {t('portability.form.successTitle')}
+        </h3>
+        <p className="mt-2 text-[15px] leading-relaxed text-[#555]">{t('portability.form.success')}</p>
+      </motion.div>
+    )
+  }
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      className="mx-auto max-w-[560px] rounded-[25px] bg-white p-8 md:p-10 shadow-lg"
+    >
+      <h2 className="mb-6 text-center text-[26px] font-bold text-[#5518c1]" style={{ fontFamily: 'var(--font-rubik)' }}>
+        {t('portability.form.title')}
+      </h2>
+      <form onSubmit={onSubmit} className="space-y-4">
+        <div>
+          <label className={labelClass} htmlFor="pf-name">{t('portability.form.name')}</label>
+          <input id="pf-name" type="text" required value={form.name} onInput={set('name')} placeholder={t('portability.form.namePlaceholder')} className={inputClass} />
+        </div>
+        <div>
+          <label className={labelClass} htmlFor="pf-email">{t('portability.form.email')}</label>
+          <input id="pf-email" type="email" required value={form.email} onInput={set('email')} placeholder={t('portability.form.emailPlaceholder')} className={inputClass} />
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label className={labelClass} htmlFor="pf-phone">{t('portability.form.phone')}</label>
+            <input id="pf-phone" type="tel" required inputMode="numeric" pattern="[0-9]{10}" maxLength={10} value={form.phone} onInput={set('phone')} placeholder={t('portability.form.phonePlaceholder')} className={inputClass} />
+          </div>
+          <div>
+            <label className={labelClass} htmlFor="pf-carrier">{t('portability.form.carrier')}</label>
+            <select id="pf-carrier" required value={form.carrier} onChange={set('carrier')} className={`${inputClass} ${form.carrier === '' ? 'text-[#00010a66]' : ''}`}>
+              <option value="" disabled>{t('portability.form.carrierPlaceholder')}</option>
+              {CARRIERS.map((c) => (
+                <option key={c} value={c} className="text-[#00010a]">{c}</option>
+              ))}
+            </select>
+          </div>
+        </div>
+        <div>
+          <label className={labelClass} htmlFor="pf-nip">{t('portability.form.nip')}</label>
+          <input id="pf-nip" type="text" required inputMode="numeric" pattern="[0-9]{4}" maxLength={4} value={form.nip} onInput={set('nip')} placeholder={t('portability.form.nipPlaceholder')} className={inputClass} />
+          <p className="mt-1.5 text-[12px] leading-relaxed text-[#888]">{t('portability.form.nipHelp')}</p>
+        </div>
+        <label className="flex items-start gap-2.5 text-[13px] leading-relaxed text-[#555] cursor-pointer">
+          <input type="checkbox" required checked={accepted} onChange={(e) => setAccepted((e.currentTarget as HTMLInputElement).checked)} className="mt-0.5 h-4 w-4 shrink-0 accent-[#5518c1]" />
+          <span>{t('portability.form.terms')}</span>
+        </label>
+        <button type="submit" className="w-full cursor-pointer rounded-full bg-[#5518c1] py-4 text-[14px] font-semibold uppercase text-white transition-all duration-200 hover:bg-[#8224e3] hover:scale-[1.02] active:scale-[0.98]" style={{ fontFamily: 'var(--font-rubik)' }}>
+          {t('portability.form.submit')}
+        </button>
+      </form>
+    </motion.div>
+  )
+}
+
+function PortabilityPage() {
+  const { t } = useTranslation('landing')
+  useEffect(() => {
+    window.scrollTo({ top: 0 })
+  }, [])
+
+  return (
+    <main>
+      <section className="bg-[#F8F9FD] overflow-hidden" style={{ fontFamily: 'var(--font-manrope)' }}>
+        <div className="mx-auto max-w-[1280px] px-6 pt-16 pb-12 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+            className="space-y-4"
+          >
+            <p className="text-[18px] font-semibold uppercase tracking-wide text-[#5518c1]" style={{ fontFamily: 'var(--font-rubik)' }}>
+              {t('portability.eyebrow')}
+            </p>
+            <h1 className="text-[44px] md:text-[64px] font-black leading-tight text-[#1c1c1c]">
+              {t('portability.title')}
+            </h1>
+            <p className="mx-auto max-w-[640px] text-[18px] md:text-[22px] font-medium leading-relaxed text-[#5518c1]" style={{ fontFamily: 'var(--font-rubik)' }}>
+              {t('portability.subtitle')}
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      <section id="portabilidad" className="bg-[#f5f5ff] py-20" style={{ fontFamily: 'var(--font-manrope)' }}>
+        <div className="mx-auto max-w-[1280px] px-6">
+          <PortabilityForm />
         </div>
       </section>
     </main>
@@ -1824,7 +1966,7 @@ export function App() {
             <Route path="/recargas" component={RecargasPage} />
             <Route path="/derechos-arco" component={ArcoPage} />
             <Route path="/por-que-vincular" component={PorQueVincularPage} />
-            <Route path="/portabilidad" component={LandingPage} />
+            <Route path="/portabilidad" component={PortabilityPage} />
             <Route path="/atencion" component={LandingPage} />
 
             {/* Account / registration flows (public) — shared account-ui. */}
