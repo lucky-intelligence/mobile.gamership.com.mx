@@ -44,6 +44,14 @@ export const landing = {
       totals: 'TOTALES',
       cta: '¡CONTRATA AHORA!',
       recommended: 'Más recomendado',
+      seeMore: 'Ver más',
+      back: 'Regresar',
+      desc: {
+        common: 'El primer paquete donde de verdad se nota que hay alguien pensando en ti.\n\nA tus 3 GB de Navegación Libre entran los bonos que corren por su cuenta y no le roban a la data buena: +1 GB de Redes Sociales para que el squad no crea que te secuestraron, +0.5 GB de Videojuegos y +0.5 GB de Streaming para no perderte el directo. 5 GB en total, más 200 min y 50 SMS.\n\nNo es el más grande. Pero es el que te hace dejar de vivir contando megas como si fueran los últimos de tu vida.',
+        rare: 'Para el que juró que “nada más una partida” hace seis horas.\n\nRare le sube a todo: 4 GB de Navegación Libre y bonos que pegan más duro —+2 GB Redes Sociales, +1 GB Videojuegos y +1 GB Streaming— cada quien en su carril, sin pelearse por la data. 8 GB para grindear el mes completo, con 200 min, 50 SMS y señal en toda Norteamérica.\n\nAquí lo de “casual” ya dejó de aplicar. Tu historial de horas jugadas lo confirmó hace rato.',
+        epic: 'Ya no vienes a jugar, vienes a que se note.\n\n6 GB de Navegación Libre y un stack de bonos en serio —+3 GB Redes Sociales, +2 GB Videojuegos y +2 GB Streaming— para subir el clip, transmitir la ranked y contestar el group chat al mismo tiempo, sin que nada se caiga en el peor momento (justo antes del clutch, como siempre). 13 GB totales, 200 min, 50 SMS y triple carrier pegado a la mejor red.\n\nMenos “se me trabó”, más highlight.',
+        legendary: 'El techo. El de los que ven los otros paquetes y sueltan una risita.\n\n12 GB de Navegación Libre y el arsenal completo, sin recortes ni letras chiquitas: +5 GB Redes Sociales, +3 GB Videojuegos y +3 GB Streaming. 23 GB que no saben qué es un límite, con 200 min, 50 SMS y triple carrier (Telcel, AT&T y Altán) siempre en la mejor señal de México, USA y Canadá.\n\nLegendary no se explica, se trae. Y si preguntas cuánto cuesta… probablemente no era para ti.',
+      },
     },
     basic: {
       validity: 'Vigencia 30 Días',
@@ -77,15 +85,15 @@ export const landing = {
       meta: 'Data adicional · Vigencia 30 días · apilable',
       loot2: {
         name: 'LOOT 2GB',
-        desc: 'El parche de emergencia. 2 GB para ese instante en que tu paquete dijo adiós y al mes todavía le quedaban ganas de guerra. Suficiente para no salir de la partida ni admitir en voz alta que te lo acabaste antes de tiempo. Vigencia 30 días, encaja con cualquier paquete.',
+        desc: 'El parche de emergencia. 2 GB para ese instante en que tu paquete dijo adiós y al mes todavía le quedaban ganas de guerra.\n\nSuficiente para no salir de la partida ni admitir en voz alta que te lo acabaste antes de tiempo.\n\nVigencia 30 días, encaja con cualquier paquete.',
       },
       loot4: {
         name: 'LOOT 4GB',
-        desc: 'Para el que juró que 4 GB extra no le hacían falta… y aquí está, leyendo esto. 4 GB para cerrar el mes con la frente en alto y sin mendigar el WiFi del vecino. Vigencia 30 días, se suma a lo que ya traigas.',
+        desc: 'Para el que juró que 4 GB extra no le hacían falta… y aquí está, leyendo esto.\n\n4 GB para cerrar el mes con la frente en alto y sin mendigar el WiFi del vecino.\n\nVigencia 30 días, se suma a lo que ya traigas.',
       },
       loot5: {
         name: 'LOOT 5GB',
-        desc: 'El extra de los que confundieron "me alcanza el mes" con "juego 14 horas diarias". 5 GB para seguir sin voltear a ver el contador con miedo. Vigencia 30 días, se apila sobre lo que ya traigas.',
+        desc: 'El extra de los que confundieron "me alcanza el mes" con "juego 14 horas diarias".\n\n5 GB para seguir sin voltear a ver el contador con miedo.\n\nVigencia 30 días, se apila sobre lo que ya traigas.',
       },
     },
     portability: {
@@ -255,6 +263,14 @@ export const landing = {
       totals: 'TOTAL',
       cta: 'GET IT NOW!',
       recommended: 'Most recommended',
+      seeMore: 'See more',
+      back: 'Back',
+      desc: {
+        common: "The first package where you can actually tell someone was thinking about you.\n\nOn top of your 3 GB of Free Browsing come bonuses that run on their own tab and never steal from the good data: +1 GB for Social Media so the squad doesn't think you got kidnapped, +0.5 GB for Gaming and +0.5 GB for Streaming so you don't miss the stream. 5 GB in total, plus 200 min and 50 SMS.\n\nIt isn't the biggest. But it's the one that stops you from counting megabytes like they're the last ones of your life.",
+        rare: "For the one who swore \"just one more match\" six hours ago.\n\nRare turns everything up: 4 GB of Free Browsing and bonuses that hit harder —+2 GB Social Media, +1 GB Gaming and +1 GB Streaming— each in its own lane, never fighting over data. 8 GB to grind the whole month, with 200 min, 50 SMS and signal across North America.\n\n\"Casual\" stopped applying here a while ago. Your playtime history confirmed it long before you did.",
+        epic: "You're not here to play anymore, you're here to be noticed.\n\n6 GB of Free Browsing and a serious bonus stack —+3 GB Social Media, +2 GB Gaming and +2 GB Streaming— to upload the clip, stream the ranked match and answer the group chat all at once, without anything dropping at the worst possible moment (right before the clutch, as always). 13 GB total, 200 min, 50 SMS and triple carrier locked onto the best network.\n\nLess \"I lagged\", more highlight.",
+        legendary: "The ceiling. The one for people who look at the other packages and let out a little laugh.\n\n12 GB of Free Browsing and the full arsenal, no cuts and no fine print: +5 GB Social Media, +3 GB Gaming and +3 GB Streaming. 23 GB that don't know what a limit is, with 200 min, 50 SMS and triple carrier (Telcel, AT&T and Altán) always on the best signal in Mexico, the US and Canada.\n\nLegendary isn't explained, it's carried. And if you're asking what it costs… it probably wasn't for you.",
+      },
     },
     basic: {
       validity: 'Valid for 30 days',
@@ -288,15 +304,15 @@ export const landing = {
       meta: 'Extra data · 30-day validity · stackable',
       loot2: {
         name: 'LOOT 2GB',
-        desc: 'The emergency patch. 2 GB for that moment when your plan tapped out and the month still had some fight left in it. Enough to stay in the match without admitting out loud that you burned through it early. Valid 30 days, fits any plan.',
+        desc: 'The emergency patch. 2 GB for that moment when your plan tapped out and the month still had some fight left in it.\n\nEnough to stay in the match without admitting out loud that you burned through it early.\n\nValid 30 days, fits any plan.',
       },
       loot4: {
         name: 'LOOT 4GB',
-        desc: 'For the one who swore 4 extra GB were unnecessary… and here you are, reading this. 4 GB to close out the month with your head high and without begging for the neighbor\'s WiFi. Valid 30 days, adds to whatever you already have.',
+        desc: 'For the one who swore 4 extra GB were unnecessary… and here you are, reading this.\n\n4 GB to close out the month with your head high and without begging for the neighbor\'s WiFi.\n\nValid 30 days, adds to whatever you already have.',
       },
       loot5: {
         name: 'LOOT 5GB',
-        desc: 'The top-up for those who confused "it\'ll last me the month" with "I play 14 hours a day". 5 GB to keep going without checking the counter in fear. Valid 30 days, stacks on top of whatever you already have.',
+        desc: 'The top-up for those who confused "it\'ll last me the month" with "I play 14 hours a day".\n\n5 GB to keep going without checking the counter in fear.\n\nValid 30 days, stacks on top of whatever you already have.',
       },
     },
     portability: {

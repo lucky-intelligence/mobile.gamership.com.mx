@@ -128,3 +128,24 @@ body {
 .flip-card-back {
   transform: rotateY(180deg);
 }
+
+/* Auto-height variant: the plan cards have no fixed height — the grid row and
+ * their own content decide it. Keeping the front face in flow lets it define
+ * that height; the back stays absolute, pinned on top of it. */
+.flip-card-auto .flip-card-face.flip-card-front {
+  position: relative;
+  height: 100%;
+}
+
+/* Pointer devices flip on hover, so the explicit button is redundant there.
+ * Touch devices have no hover state, so they keep the button and drive the
+ * flip through component state instead. */
+@media (hover: hover) and (pointer: fine) {
+  .flip-card-hover:hover .flip-card-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flip-trigger {
+    display: none;
+  }
+}
