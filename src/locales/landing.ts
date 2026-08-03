@@ -31,7 +31,6 @@ export const landing = {
       title: 'Elige tu Modalidad',
       note1:
         'Todos los paquetes tienen vigencia de 30 días. Redes Sociales: WhatsApp, Twitter, Telegram. •Streaming: Twitch, Discord. •',
-      note1Mobility: 'Movilidad: Uber, Waze •',
       note2: 'Sin Fronteras, Voz, SMS: Pueden ser utilizado en México, Estados Unidos y Canadá.',
     },
     plan: {
@@ -87,6 +86,30 @@ export const landing = {
       loot5: {
         name: 'LOOT 5GB',
         desc: 'El extra de los que confundieron "me alcanza el mes" con "juego 14 horas diarias". 5 GB para seguir sin voltear a ver el contador con miedo. Vigencia 30 días, se apila sobre lo que ya traigas.',
+      },
+    },
+    portability: {
+      eyebrow: 'Conserva tu número',
+      title: 'Tráete tu número a Gamership',
+      subtitle:
+        'Cámbiate desde otra compañía y conserva el mismo número. Llena el formulario y nosotros nos encargamos del resto: es gratis y sin cortes de servicio.',
+      form: {
+        title: 'Solicita tu portabilidad',
+        name: 'Nombre completo',
+        namePlaceholder: 'Tu nombre',
+        email: 'Correo electrónico',
+        emailPlaceholder: 'tucorreo@ejemplo.com',
+        phone: 'Número que quieres conservar',
+        phonePlaceholder: '10 dígitos',
+        carrier: 'Compañía actual',
+        carrierPlaceholder: 'Selecciona tu compañía',
+        nip: 'NIP de portabilidad',
+        nipPlaceholder: '4 dígitos',
+        nipHelp: 'Solicítalo gratis enviando la palabra PORTA al 051 desde la línea que quieres conservar.',
+        terms: 'Acepto el aviso de privacidad y autorizo el trámite de portabilidad de mi número.',
+        submit: 'Solicitar portabilidad',
+        successTitle: '¡Solicitud recibida!',
+        success: 'Te contactaremos muy pronto para completar tu portabilidad. Revisa tu correo.',
       },
     },
     linkLine: {
@@ -219,7 +242,6 @@ export const landing = {
       title: 'Choose your plan',
       note1:
         'All packages are valid for 30 days. Social media: WhatsApp, Twitter, Telegram. •Streaming: Twitch, Discord. •',
-      note1Mobility: 'Mobility: Uber, Waze •',
       note2: 'Borderless, Voice, SMS: Can be used in Mexico, the United States and Canada.',
     },
     plan: {
@@ -275,6 +297,30 @@ export const landing = {
       loot5: {
         name: 'LOOT 5GB',
         desc: 'The top-up for those who confused "it\'ll last me the month" with "I play 14 hours a day". 5 GB to keep going without checking the counter in fear. Valid 30 days, stacks on top of whatever you already have.',
+      },
+    },
+    portability: {
+      eyebrow: 'Keep your number',
+      title: 'Bring your number to Gamership',
+      subtitle:
+        `Switch from another carrier and keep the same number. Fill out the form and we'll handle the rest — it's free and with no service downtime.`,
+      form: {
+        title: 'Request your port-in',
+        name: 'Full name',
+        namePlaceholder: 'Your name',
+        email: 'Email',
+        emailPlaceholder: 'you@example.com',
+        phone: 'Number you want to keep',
+        phonePlaceholder: '10 digits',
+        carrier: 'Current carrier',
+        carrierPlaceholder: 'Select your carrier',
+        nip: 'Portability NIP',
+        nipPlaceholder: '4 digits',
+        nipHelp: 'Get it for free by texting the word PORTA to 051 from the line you want to keep.',
+        terms: 'I accept the privacy notice and authorize the port-in of my number.',
+        submit: 'Request port-in',
+        successTitle: 'Request received!',
+        success: `We'll contact you shortly to complete your port-in. Check your email.`,
       },
     },
     linkLine: {

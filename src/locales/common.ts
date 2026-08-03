@@ -3,7 +3,7 @@ export const common = {
     nav: {
       paquetes: 'Paquetes',
       recargas: 'Recargas',
-      portabilidad: 'Portabilidad',
+      portabilidad: 'Conserva tu número',
       atencion: 'Atención a Cliente',
     },
     cta: {
@@ -49,7 +49,7 @@ export const common = {
         recharges: 'Recargas',
         linkLine: 'Vincula tu línea',
         faq: 'FAQ',
-        portability: 'Portabilidad',
+        portability: 'Conserva tu número',
         activateSim: 'Activar SIM',
         helpCenter: 'Centro de Ayuda',
         terms: 'Términos y condiciones',
