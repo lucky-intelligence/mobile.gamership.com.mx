@@ -137,12 +137,40 @@ body {
   height: 100%;
 }
 
+/* Vertical variant: BASIC is wide and short, so swinging it around the Y axis
+ * would sweep it across half the section. Rotating on X keeps the motion
+ * inside the card's own footprint. */
+.flip-card-vertical .flip-card-inner.is-flipped {
+  transform: rotateX(180deg);
+}
+
+.flip-card-vertical .flip-card-back {
+  transform: rotateX(180deg);
+}
+
+/* Stacked variant: both faces stay in flow, sharing one grid cell, so the card
+ * grows to fit whichever side is taller. The auto variant can't do that — it
+ * sizes to the front alone, and BASIC's description runs longer than its three
+ * columns are tall. */
+.flip-card-stack .flip-card-inner {
+  display: grid;
+}
+
+.flip-card-stack .flip-card-face {
+  position: relative;
+  grid-area: 1 / 1;
+}
+
 /* Pointer devices flip on hover, so the explicit button is redundant there.
  * Touch devices have no hover state, so they keep the button and drive the
  * flip through component state instead. */
 @media (hover: hover) and (pointer: fine) {
   .flip-card-hover:hover .flip-card-inner {
     transform: rotateY(180deg);
+  }
+
+  .flip-card-vertical.flip-card-hover:hover .flip-card-inner {
+    transform: rotateX(180deg);
   }
 
   .flip-trigger {

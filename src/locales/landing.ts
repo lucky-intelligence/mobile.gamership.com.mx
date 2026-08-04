@@ -56,6 +56,7 @@ export const landing = {
     basic: {
       validity: 'Vigencia 30 Días',
       freeNav: 'Navegación Libre',
+      desc: 'Es el paquete de entrada y no le vamos a echar mentiras: hace una cosa, la hace bien, y no te pide un riñón.\n\nTriple carrier en una sola SIM —Telcel, AT&T y Altán— brincando solito a la red que jale mejor mientras tú ni te enteras. 3 GB de Navegación Libre, 100 minutos y 25 SMS que funcionan en México, USA y Canadá.\n\nEs tu respawn point. Todos empezamos en algún lado; unos con más dignidad que otros.',
     },
     ecosystem: {
       title: 'Ecosistema Gamership',
@@ -95,6 +96,12 @@ export const landing = {
         name: 'LOOT 5GB',
         desc: 'El extra de los que confundieron "me alcanza el mes" con "juego 14 horas diarias".\n\n5 GB para seguir sin voltear a ver el contador con miedo.\n\nVigencia 30 días, se apila sobre lo que ya traigas.',
       },
+      voice: {
+        name: 'Recarga Voz',
+        unit: 'min',
+        totals: 'Minutos',
+        desc: 'Agrega este paquete de minutos adicionales para que sigas llamando a tu squad cuando la comunicación necesite continuar.',
+      },
     },
     portability: {
       eyebrow: 'Conserva tu número',
@@ -105,7 +112,7 @@ export const landing = {
         title: 'Lo que debes saber antes de empezar',
         s1: {
           title: 'Tu número está protegido por ley',
-          body: 'El Instituto Federal de Telecomunicaciones regula cada portabilidad en México. El número te pertenece a ti, no a la compañía que te lo dio.',
+          body: 'La Comisión Reguladora de Telecomunicaciones regula cada portabilidad en México. El número te pertenece a ti, no a la compañía que te lo dio.',
         },
         s2: {
           title: 'No lo haces solo',
@@ -115,7 +122,7 @@ export const landing = {
           title: 'Puedes ver el avance',
           before: 'Al iniciar el trámite recibes un folio. Con ese folio consultas el estatus cuando quieras en ',
           link: 'portabilidad.mx',
-          after: ', el sitio oficial del IFT.',
+          after: ', el sitio oficial de la CRT.',
         },
       },
       steps: {
@@ -156,7 +163,7 @@ export const landing = {
         title: 'Preguntas frecuentes',
         q1: {
           q: '¿Puedo perder mi número?',
-          a: 'No. Conservarlo es el objetivo del trámite y está garantizado por el IFT.',
+          a: 'No. Conservarlo es el objetivo del trámite y está garantizado por la CRT.',
         },
         q2: {
           q: '¿Cuánto cuesta la portabilidad?',
@@ -408,6 +415,7 @@ export const landing = {
     basic: {
       validity: 'Valid for 30 days',
       freeNav: 'Free browsing',
+      desc: "It's the entry-level package and we won't lie to you: it does one thing, it does it well, and it doesn't cost you a kidney.\n\nTriple carrier on a single SIM —Telcel, AT&T and Altán— hopping on its own to whichever network runs best while you don't even notice. 3 GB of Free Browsing, 100 minutes and 25 SMS that work across Mexico, the US and Canada.\n\nIt's your respawn point. We all start somewhere; some with more dignity than others.",
     },
     ecosystem: {
       title: 'Gamership Ecosystem',
@@ -447,6 +455,12 @@ export const landing = {
         name: 'LOOT 5GB',
         desc: 'The top-up for those who confused "it\'ll last me the month" with "I play 14 hours a day".\n\n5 GB to keep going without checking the counter in fear.\n\nValid 30 days, stacks on top of whatever you already have.',
       },
+      voice: {
+        name: 'Voice Top-Up',
+        unit: 'min',
+        totals: 'Minutes',
+        desc: 'Add this extra minutes package so you can keep calling your squad when the conversation needs to go on.',
+      },
     },
     portability: {
       eyebrow: 'Keep your number',
@@ -457,7 +471,7 @@ export const landing = {
         title: 'What you should know before you start',
         s1: {
           title: 'Your number is protected by law',
-          body: 'The Federal Telecommunications Institute regulates every number transfer in Mexico. The number belongs to you, not to the carrier that gave it to you.',
+          body: 'The Telecommunications Regulatory Commission regulates every number transfer in Mexico. The number belongs to you, not to the carrier that gave it to you.',
         },
         s2: {
           title: 'You are not doing this alone',
@@ -467,7 +481,7 @@ export const landing = {
           title: 'You can track the progress',
           before: 'When you start the process you receive a reference number. With it you can check the status any time at ',
           link: 'portabilidad.mx',
-          after: ', the official IFT site.',
+          after: ', the official CRT site.',
         },
       },
       steps: {
@@ -508,7 +522,7 @@ export const landing = {
         title: 'Frequently asked questions',
         q1: {
           q: 'Can I lose my number?',
-          a: 'No. Keeping it is the whole point of the process, and it is guaranteed by the IFT.',
+          a: 'No. Keeping it is the whole point of the process, and it is guaranteed by the CRT.',
         },
         q2: {
           q: 'How much does the transfer cost?',
