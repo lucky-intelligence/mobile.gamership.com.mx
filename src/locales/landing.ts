@@ -175,7 +175,7 @@ export const landing = {
         },
         q4: {
           q: '¿Cuánto tarda?',
-          a: 'El trámite tarda hasta 24 horas hábiles. Cuando tu chip anterior deje de dar servicio, tu número ya está en Gamership.',
+          a: 'El trámite tarda hasta 24-72 horas hábiles. Cuando tu chip anterior deje de dar servicio, tu número ya está en Gamership.',
         },
         q5: {
           q: '¿Y si algo se complica?',
@@ -534,7 +534,7 @@ export const landing = {
         },
         q4: {
           q: 'How long does it take?',
-          a: 'The process takes up to 24 business hours. When your old SIM stops working, your number is already on Gamership.',
+          a: 'The process takes up to 24-72 business hours. When your old SIM stops working, your number is already on Gamership.',
         },
         q5: {
           q: 'What if something goes wrong?',
