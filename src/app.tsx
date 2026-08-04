@@ -1575,110 +1575,7 @@ function PortabilityPage() {
 /* ============================================================
    ATENCIÓN A CLIENTE PAGE (/atencion) — contact form + channels
    ============================================================ */
-const SUPPORT_TOPIC_KEYS = ['billing', 'coverage', 'packages', 'portability', 'linkLine', 'other'] as const
-
 const SUPPORT_EMAIL = 'soporte@gamership.com.mx'
-
-function SupportForm() {
-  const { t } = useTranslation('landing')
-  const [form, setForm] = useState({ name: '', email: '', phone: '', topic: '', message: '' })
-  const [submitted, setSubmitted] = useState(false)
-
-  const set = (field: keyof typeof form) => (e: Event) => {
-    const target = e.currentTarget as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    setForm((f) => ({ ...f, [field]: target.value }))
-  }
-
-  const onSubmit = (e: Event) => {
-    e.preventDefault()
-    // TODO: enviar `form` al endpoint de soporte cuando exista.
-    setSubmitted(true)
-  }
-
-  const inputClass =
-    'w-full rounded-xl border border-[#e5e5ef] bg-white px-4 py-3 text-[15px] text-[#00010a] placeholder:text-[#00010a66] outline-none transition-colors focus:border-[#5518c1] focus:ring-2 focus:ring-[#5518c1]/20'
-  const labelClass = 'block text-[13px] font-semibold text-[#00010a] mb-1.5'
-
-  if (submitted) {
-    return (
-      <motion.div
-        initial={{ opacity: 0, scale: 0.96 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.4, ease: 'easeOut' }}
-        className="mx-auto max-w-[620px] rounded-[25px] bg-white p-10 text-center shadow-lg"
-      >
-        <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-[#50fbd2]">
-          <Check size={30} color="#5518c1" strokeWidth={3} aria-hidden="true" />
-        </div>
-        <h3 className="text-[24px] font-bold text-[#5518c1]" style={{ fontFamily: 'var(--font-rubik)' }}>
-          {t('support.form.successTitle')}
-        </h3>
-        <p className="mt-2 text-[15px] leading-relaxed text-[#555]">{t('support.form.success')}</p>
-      </motion.div>
-    )
-  }
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      className="mx-auto max-w-[620px] rounded-[25px] bg-white p-8 md:p-10 shadow-lg"
-    >
-      <h2 className="mb-6 text-center text-[26px] font-bold text-[#5518c1]" style={{ fontFamily: 'var(--font-rubik)' }}>
-        {t('support.form.title')}
-      </h2>
-      <form onSubmit={onSubmit} className="space-y-4">
-        <div>
-          <label className={labelClass} htmlFor="sf-name">{t('support.form.name')}</label>
-          <input id="sf-name" type="text" required value={form.name} onInput={set('name')} placeholder={t('support.form.namePlaceholder')} className={inputClass} />
-        </div>
-        <div>
-          <label className={labelClass} htmlFor="sf-email">{t('support.form.email')}</label>
-          <input id="sf-email" type="email" required value={form.email} onInput={set('email')} placeholder={t('support.form.emailPlaceholder')} className={inputClass} />
-        </div>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <div>
-            <label className={labelClass} htmlFor="sf-phone">
-              {t('support.form.phone')} <span className="font-normal text-[#888]">({t('support.form.phoneOptional')})</span>
-            </label>
-            <input id="sf-phone" type="tel" inputMode="numeric" pattern="[0-9]{10}" maxLength={10} value={form.phone} onInput={set('phone')} placeholder={t('support.form.phonePlaceholder')} className={inputClass} />
-          </div>
-          <div>
-            <label className={labelClass} htmlFor="sf-topic">{t('support.form.topic')}</label>
-            <select id="sf-topic" required value={form.topic} onChange={set('topic')} className={`${inputClass} ${form.topic === '' ? 'text-[#00010a66]' : ''}`}>
-              <option value="" disabled>{t('support.form.topicPlaceholder')}</option>
-              {SUPPORT_TOPIC_KEYS.map((k) => (
-                <option key={k} value={k} className="text-[#00010a]">
-                  {t(`support.form.topics.${k}`)}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
-        <div>
-          <label className={labelClass} htmlFor="sf-message">{t('support.form.message')}</label>
-          <textarea
-            id="sf-message"
-            required
-            rows={5}
-            value={form.message}
-            onInput={set('message')}
-            placeholder={t('support.form.messagePlaceholder')}
-            className={`${inputClass} resize-y`}
-          />
-        </div>
-        <button
-          type="submit"
-          className="min-h-[48px] w-full rounded-full bg-[#5518c1] py-4 text-[15px] font-semibold text-white transition-all duration-200 hover:bg-[#8224e3] hover:scale-[1.01] active:scale-[0.99] cursor-pointer"
-          style={{ fontFamily: 'var(--font-rubik)' }}
-        >
-          {t('support.form.submit')}
-        </button>
-      </form>
-    </motion.div>
-  )
-}
 
 function SupportPage() {
   const { t } = useTranslation('landing')
@@ -1711,12 +1608,6 @@ function SupportPage() {
               {t('support.subtitle')}
             </p>
           </motion.div>
-        </div>
-      </section>
-
-      <section className="bg-[#f5f5ff] py-20">
-        <div className="mx-auto max-w-[1280px] px-6">
-          <SupportForm />
         </div>
       </section>
 
