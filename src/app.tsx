@@ -646,6 +646,110 @@ function PlanCard({ plan, index }: { plan: Plan; index: number }) {
 }
 
 /* ============================================================
+   BASIC CARD — wide 3-column card, flips on the X axis
+   ============================================================ */
+function BasicCard() {
+  const { t } = useTranslation('landing')
+  const [flipped, setFlipped] = useState(false)
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: 0.4 }}
+      className="flip-card flip-card-stack flip-card-vertical flip-card-hover mt-8 max-w-[860px] mx-auto"
+    >
+      <div className={`flip-card-inner ${flipped ? 'is-flipped' : ''}`}>
+        {/* FRONT — three columns */}
+        <div className="flip-card-face flip-card-front rounded-[25px] overflow-hidden flex flex-col md:flex-row">
+          <div className="flex-1 flex flex-col items-center justify-center px-8 py-8 bg-[#5518c1] text-white text-center" style={{ fontFamily: 'var(--font-rubik)' }}>
+            <p className="text-[37px] font-semibold uppercase leading-tight">BASIC</p>
+            <div className="flex items-baseline gap-1 mt-1">
+              <span className="text-[18px] font-semibold">$</span>
+              <span className="text-[48px] font-semibold leading-none">150</span>
+              <span className="text-[18px] font-semibold ml-1">MXN</span>
+            </div>
+            <p className="text-[15px] font-bold mt-2">{t('basic.validity')}</p>
+          </div>
+
+          <div className="flex-1 flex flex-col items-center justify-center px-8 py-8 bg-white text-center" style={{ fontFamily: 'var(--font-rubik)' }}>
+            <p className="text-[48px] font-extrabold text-[#00010a] leading-none">3GB</p>
+            <p className="text-[15px] font-bold text-[#00010a] mt-1">{t('basic.freeNav')}</p>
+            <p className="text-[13px] text-[#444] mt-2">
+              <strong>25</strong> {t('plan.sms')} + <strong>100</strong> {t('plan.voiceMinutes')}
+            </p>
+            <button
+              type="button"
+              onClick={() => setFlipped(true)}
+              className="flip-trigger mt-3 inline-flex items-center gap-1 text-[13px] font-semibold text-[#5518c1] hover:text-[#8224e3] transition-colors duration-200 cursor-pointer"
+            >
+              {t('plan.seeMore')}
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5">
+                <path d="m9 6 6 6-6 6" />
+              </svg>
+            </button>
+          </div>
+
+          <div className="flex-1 flex flex-col items-center justify-center px-8 py-8 bg-[#50fbd2] text-center space-y-3" style={{ fontFamily: 'var(--font-rubik)' }}>
+            <div>
+              <p className="text-[48px] font-extrabold text-[#5518c1] leading-none">3GB</p>
+              <p className="text-[13px] font-bold tracking-wide text-[#5518c1] uppercase">{t('plan.totals')}</p>
+            </div>
+            <a
+              href="/dashboard"
+              className="block w-full text-center rounded-full bg-[#5518c1] px-6 py-3 text-[13px] font-medium uppercase text-white transition-all duration-200 hover:bg-[#8224e3] hover:scale-[1.02] active:scale-[0.98]"
+            >
+              {t('plan.cta')}
+            </a>
+          </div>
+        </div>
+
+        {/* BACK — package copy, keeping the buy column from the front face */}
+        <div className="flip-card-face flip-card-back rounded-[25px] overflow-hidden flex flex-col md:flex-row bg-white border border-[#e5e5f2]">
+          <div className="flex-[2] flex flex-col justify-center px-8 py-8 text-left">
+            <h4 className="flex items-center gap-2 text-[17px] font-bold text-[#5518c1]" style={{ fontFamily: 'var(--font-rubik)' }}>
+              <span className="text-[#50fbd2] drop-shadow-[0_0_1px_rgba(85,24,193,0.6)]">◆</span>
+              BASIC
+            </h4>
+            {/* Copy ships as one string with blank-line breaks; split it into
+                real paragraphs instead of preserving raw whitespace. */}
+            <div className="mt-3 space-y-2.5 text-[13px] leading-relaxed text-[#444]">
+              {t('basic.desc')
+                .split('\n\n')
+                .map((para, n) => (
+                  <p key={n}>{para}</p>
+                ))}
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setFlipped(false)}
+              className="flip-trigger mt-4 inline-flex items-center gap-1 self-start text-[13px] font-semibold text-[#5518c1] hover:text-[#8224e3] transition-colors duration-200 cursor-pointer"
+              style={{ fontFamily: 'var(--font-rubik)' }}
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5">
+                <path d="m15 6-6 6 6 6" />
+              </svg>
+              {t('plan.back')}
+            </button>
+          </div>
+
+          <div className="flex-1 flex items-center justify-center px-8 py-8 bg-[#50fbd2]" style={{ fontFamily: 'var(--font-rubik)' }}>
+            <a
+              href="/dashboard"
+              className="block w-full text-center rounded-full bg-[#5518c1] px-6 py-3 text-[13px] font-medium uppercase text-white transition-all duration-200 hover:bg-[#8224e3] hover:scale-[1.02] active:scale-[0.98]"
+            >
+              {t('plan.cta')}
+            </a>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  )
+}
+
+/* ============================================================
    PLANS SECTION
    ============================================================ */
 function PlansSection() {
@@ -669,45 +773,7 @@ function PlansSection() {
           ))}
         </div>
 
-        {/* BASIC — horizontal 3-column layout */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.4 }}
-          className="mt-8 max-w-[860px] mx-auto rounded-[25px] overflow-hidden flex flex-col md:flex-row"
-        >
-          <div className="flex-1 flex flex-col items-center justify-center px-8 py-8 bg-[#5518c1] text-white text-center" style={{ fontFamily: 'var(--font-rubik)' }}>
-            <p className="text-[37px] font-semibold uppercase leading-tight">BASIC</p>
-            <div className="flex items-baseline gap-1 mt-1">
-              <span className="text-[18px] font-semibold">$</span>
-              <span className="text-[48px] font-semibold leading-none">150</span>
-              <span className="text-[18px] font-semibold ml-1">MXN</span>
-            </div>
-            <p className="text-[15px] font-bold mt-2">{t('basic.validity')}</p>
-          </div>
-
-          <div className="flex-1 flex flex-col items-center justify-center px-8 py-8 bg-white text-center" style={{ fontFamily: 'var(--font-rubik)' }}>
-            <p className="text-[48px] font-extrabold text-[#00010a] leading-none">3GB</p>
-            <p className="text-[15px] font-bold text-[#00010a] mt-1">{t('basic.freeNav')}</p>
-            <p className="text-[13px] text-[#444] mt-2">
-              <strong>25</strong> {t('plan.sms')} + <strong>100</strong> {t('plan.voiceMinutes')}
-            </p>
-          </div>
-
-          <div className="flex-1 flex flex-col items-center justify-center px-8 py-8 bg-[#50fbd2] text-center space-y-3" style={{ fontFamily: 'var(--font-rubik)' }}>
-            <div>
-              <p className="text-[48px] font-extrabold text-[#5518c1] leading-none">3GB</p>
-              <p className="text-[13px] font-bold tracking-wide text-[#5518c1] uppercase">{t('plan.totals')}</p>
-            </div>
-            <a
-              href="/dashboard"
-              className="block w-full text-center rounded-full bg-[#5518c1] px-6 py-3 text-[13px] font-medium uppercase text-white transition-all duration-200 hover:bg-[#8224e3] hover:scale-[1.02] active:scale-[0.98]"
-            >
-              {t('plan.cta')}
-            </a>
-          </div>
-        </motion.div>
+        <BasicCard />
 
         <motion.div
           initial={{ opacity: 0 }}
@@ -979,6 +1045,104 @@ function RecargaCard({ recarga, index }: { recarga: Recarga; index: number }) {
   )
 }
 
+/* Voice top-up — wide card under the Loot grid, same X-axis flip as BASIC.
+   `id` is the API's PackagesId, which is what the dashboard matches on. */
+const VOICE_RECARGA = { id: 'Gamership_Recarga_Voz_500_MUC', minutes: '500', price: '50.00' }
+
+function VoiceRecargaCard() {
+  const { t } = useTranslation('landing')
+  const [flipped, setFlipped] = useState(false)
+
+  const buy = () => {
+    localStorage.setItem('package', VOICE_RECARGA.id)
+    window.location.href = '/dashboard'
+  }
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: 0.3 }}
+      className="flip-card flip-card-stack flip-card-vertical flip-card-hover mt-8 max-w-[900px] mx-auto"
+    >
+      <div className={`flip-card-inner ${flipped ? 'is-flipped' : ''}`}>
+        {/* FRONT — three columns */}
+        <div className="flip-card-face flip-card-front rounded-[25px] overflow-hidden flex flex-col md:flex-row">
+          <div className="flex-1 flex flex-col items-center justify-center px-8 py-8 bg-[#5518c1] text-white text-center" style={{ fontFamily: 'var(--font-rubik)' }}>
+            <p className="text-[28px] font-semibold uppercase leading-tight">{t('recargas.voice.name')}</p>
+            <div className="flex items-baseline gap-1 mt-2">
+              <span className="text-[18px] font-semibold">$</span>
+              <span className="text-[42px] font-semibold leading-none">{VOICE_RECARGA.price}</span>
+              <span className="text-[18px] font-semibold ml-1">MXN</span>
+            </div>
+          </div>
+
+          <div className="flex-1 flex flex-col items-center justify-center px-8 py-8 bg-white text-center" style={{ fontFamily: 'var(--font-rubik)' }}>
+            <p className="text-[48px] font-extrabold text-[#00010a] leading-none">{VOICE_RECARGA.minutes}</p>
+            <p className="text-[15px] font-bold text-[#00010a] mt-1">{t('recargas.voice.unit')}</p>
+            <button
+              type="button"
+              onClick={() => setFlipped(true)}
+              className="flip-trigger mt-3 inline-flex items-center gap-1 text-[13px] font-semibold text-[#5518c1] hover:text-[#8224e3] transition-colors duration-200 cursor-pointer"
+            >
+              {t('recargas.seeMore')}
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5">
+                <path d="m9 6 6 6-6 6" />
+              </svg>
+            </button>
+          </div>
+
+          <div className="flex-1 flex flex-col items-center justify-center px-8 py-8 bg-[#50fbd2] text-center space-y-3" style={{ fontFamily: 'var(--font-rubik)' }}>
+            <div>
+              <p className="text-[48px] font-extrabold text-[#5518c1] leading-none">{VOICE_RECARGA.minutes}</p>
+              <p className="text-[13px] font-bold tracking-wide text-[#5518c1] uppercase">{t('recargas.voice.totals')}</p>
+            </div>
+            <a
+              onClick={buy}
+              className="block w-full cursor-pointer text-center rounded-full bg-[#5518c1] px-6 py-3 text-[13px] font-medium uppercase text-white transition-all duration-200 hover:bg-[#8224e3] hover:scale-[1.02] active:scale-[0.98]"
+            >
+              {t('recargas.cta')}
+            </a>
+          </div>
+        </div>
+
+        {/* BACK — package copy, keeping the buy column from the front face */}
+        <div className="flip-card-face flip-card-back rounded-[25px] overflow-hidden flex flex-col md:flex-row bg-white border border-[#e5e5f2]">
+          <div className="flex-[2] flex flex-col justify-center px-8 py-8 text-left">
+            <h4 className="flex items-center gap-2 text-[17px] font-bold text-[#5518c1]" style={{ fontFamily: 'var(--font-rubik)' }}>
+              <span className="text-[#50fbd2] drop-shadow-[0_0_1px_rgba(85,24,193,0.6)]">◆</span>
+              {t('recargas.voice.name')} {VOICE_RECARGA.minutes}
+            </h4>
+            <p className="mt-3 text-[13px] leading-relaxed text-[#444]">{t('recargas.voice.desc')}</p>
+
+            <button
+              type="button"
+              onClick={() => setFlipped(false)}
+              className="flip-trigger mt-4 inline-flex items-center gap-1 self-start text-[13px] font-semibold text-[#5518c1] hover:text-[#8224e3] transition-colors duration-200 cursor-pointer"
+              style={{ fontFamily: 'var(--font-rubik)' }}
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5">
+                <path d="m15 6-6 6 6 6" />
+              </svg>
+              {t('recargas.flipBack')}
+            </button>
+          </div>
+
+          <div className="flex-1 flex items-center justify-center px-8 py-8 bg-[#50fbd2]" style={{ fontFamily: 'var(--font-rubik)' }}>
+            <a
+              onClick={buy}
+              className="block w-full cursor-pointer text-center rounded-full bg-[#5518c1] px-6 py-3 text-[13px] font-medium uppercase text-white transition-all duration-200 hover:bg-[#8224e3] hover:scale-[1.02] active:scale-[0.98]"
+            >
+              {t('recargas.cta')}
+            </a>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  )
+}
+
 function RecargasPage() {
   const { t } = useTranslation('landing')
 
@@ -1005,6 +1169,8 @@ function RecargasPage() {
               <RecargaCard key={recarga.gb} recarga={recarga} index={i} />
             ))}
           </div>
+
+          <VoiceRecargaCard />
         </div>
       </section>
     </main>
