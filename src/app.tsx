@@ -15,6 +15,7 @@ import {
   GlobalProvider,
   Authenticated,
   Dashboard,
+  LoginPage,
   accountUI,
 } from '@lucky-intelligence/account-ui'
 import { BorderBeam } from '@/components/ui/border-beam'
@@ -25,6 +26,8 @@ import './i18n'
 configureAccountCore({
   apiUrl: import.meta.env.VITE_API_URL,
   stripePublicKey: import.meta.env.VITE_STRIPE_PUBLIC_KEY,
+  loginMode: 'custom',
+  loginPath: '/login',
   cognito: {
     domain: import.meta.env.VITE_COGNITO_DOMAIN,
     clientId: import.meta.env.VITE_COGNITO_CLIENT_ID,
@@ -257,7 +260,7 @@ function Navbar() {
           <LangSwitch accountMode={onDashboard} />
           {onDashboard && <DarkToggle dark={dark} toggle={toggleDark} accountMode />}
           <a
-            href="/dashboard"
+            href="/login"
             onClick={onAccountClick}
             className="flex items-center gap-2 rounded-full bg-[#5518c1] px-5 py-2.5 text-[15px] font-semibold text-white transition-all duration-200 hover:bg-[#8224e3] hover:scale-105 active:scale-95"
           >
@@ -306,7 +309,7 @@ function Navbar() {
             {onDashboard && <DarkToggle dark={dark} toggle={toggleDark} compact accountMode />}
           </div>
           <a
-            href="/dashboard"
+            href="/login"
             onClick={onAccountClick}
             className="inline-flex items-center gap-2 rounded-full bg-[#5518c1] px-5 py-2.5 text-[15px] font-semibold text-white"
           >
@@ -2517,6 +2520,12 @@ const DashboardRoute = accountScope(() => (
   </AuthProvider>
 ))
 
+const LoginRoute = accountScope(() => (
+  <AuthProvider>
+    <LoginPage dashboardPath="/dashboard" />
+  </AuthProvider>
+))
+
 /* ============================================================
    LANDING + 404
    ============================================================ */
@@ -2588,6 +2597,7 @@ export function App() {
             <Route path="/vincula-tu-linea/consultar" component={CrtCheck}      lang={lang} landingPath="/vincula-tu-linea" registerPath="/vincula-tu-linea/registro" />
             <Route path="/vincula-tu-linea/registro"  component={PhoneRegister} lang={lang} backTo="/vincula-tu-linea" />
             <Route path="/confirm-phone/:token"       component={PhoneConfirm} />
+            <Route path="/login"                      component={LoginRoute} />
             <Route path="/dashboard"                  component={DashboardRoute} />
 
             <Route default component={NotFound} />
