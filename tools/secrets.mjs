@@ -5,11 +5,11 @@ import {
 
 import fs from "fs";
 
-const region = process.env.AWS_REGION || "us-east-1";
-const secretId = process.env.AWS_SECRET;
+const region = process.env.SECRET_REGION || process.env.AWS_REGION || "us-east-1";
+const secretId = process.env.AWS_SECRET || process.env.SECRET_ID;
 
 if (!secretId) {
-    throw new Error("AWS_SECRET is not set — provide the Secrets Manager secret name or ARN.");
+    throw new Error("AWS_SECRET (or SECRET_ID) is not set — provide the Secrets Manager secret name or ARN.");
 }
 
 const client = new SecretsManagerClient({ region });
@@ -35,3 +35,5 @@ if (!raw) {
 const secret = JSON.parse(raw);
 
 fs.writeFileSync(".env", Object.entries(secret).map(([key, value]) => `${key}=${value}`).join("\n"), "utf-8");
+
+console.log(`Wrote ${Object.keys(secret).length} keys to .env: ${Object.keys(secret).join(", ")}`);
