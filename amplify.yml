@@ -4,7 +4,7 @@ frontend:
     preBuild:
       commands:
         - echo "@lucky-intelligence:registry=https://npm.pkg.github.com" > .npmrc
-        - echo "//://github.com\${NPM_TOKEN}" >> .npmrc
+        - echo "//npm.pkg.github.com/:_authToken=${NPM_TOKEN}" >> .npmrc
         - npm ci --cache .npm --prefer-offline
     build:
       commands:
