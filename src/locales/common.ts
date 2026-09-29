@@ -44,7 +44,7 @@ export const common = {
       links: {
         mobile: 'Gamership Mobile',
         eshop: 'Gamership eShop',
-        affiliates: 'Gamership Afiliados',
+        affiliates: 'Gamership Partnership',
         packages: 'Paquetes',
         recharges: 'Recargas',
         linkLine: 'Vincula tu línea',
@@ -103,7 +103,7 @@ export const common = {
       links: {
         mobile: 'Gamership Mobile',
         eshop: 'Gamership eShop',
-        affiliates: 'Gamership Affiliates',
+        affiliates: 'Gamership Partnership',
         packages: 'Packages',
         recharges: 'Top-ups',
         linkLine: 'Link your line',

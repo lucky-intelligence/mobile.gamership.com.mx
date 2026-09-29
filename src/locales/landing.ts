@@ -73,10 +73,21 @@ export const landing = {
         desc: 'Consolas, accesorios, códigos digitales y monedas de juego, con descuentos exclusivos para miembros de la comunidad.',
       },
     },
+    activateCta: {
+      badge: 'Ya tienes tu SIM',
+      title: 'Activa tu línea\ny entra al juego',
+      subtitle:
+        'Elige tu modalidad, registra tu SIM Gamership Mobile y quedas conectado en minutos. Sin filas, sin contratos eternos, y con megas de calidad.',
+      primary: 'Activa tu línea',
+      secondary: '¿Cómo activo mi SIM?',
+      meta1: 'Ten a mano tu ICCID',
+      meta2: 'Activación en 5 minutos',
+      meta3: 'Debes tener Wi-Fi',
+    },
     recargas: {
       title: 'Recargas',
       label: 'Loot',
-      cta: 'Recargar',
+      cta: '¡Recargar Ahora!',
       validity: 'Vigencia de 30 días',
       shareData: 'Comparte Datos',
       speed: 'Datos A Máxima Velocidad',
@@ -88,9 +99,9 @@ export const landing = {
         name: 'LOOT 2GB',
         desc: 'El parche de emergencia. 2 GB para ese instante en que tu paquete dijo adiós y al mes todavía le quedaban ganas de guerra.\n\nSuficiente para no salir de la partida ni admitir en voz alta que te lo acabaste antes de tiempo.\n\nVigencia 30 días, encaja con cualquier paquete.',
       },
-      loot4: {
-        name: 'LOOT 4GB',
-        desc: 'Para el que juró que 4 GB extra no le hacían falta… y aquí está, leyendo esto.\n\n4 GB para cerrar el mes con la frente en alto y sin mendigar el WiFi del vecino.\n\nVigencia 30 días, se suma a lo que ya traigas.',
+      loot12: {
+        name: 'LOOT 12GB',
+        desc: 'El cargamento completo. 12 GB para el que ya no quiere volver a pensar en cuántos datos le quedan.\n\nDescargas, partidas largas y streaming sin racionar nada hasta que cierre el mes.\n\nVigencia 30 días, se apila sobre lo que ya traigas.',
       },
       loot5: {
         name: 'LOOT 5GB',
@@ -432,10 +443,21 @@ export const landing = {
         desc: 'Consoles, accessories, digital codes and in-game currency, with exclusive discounts for community members.',
       },
     },
+    activateCta: {
+      badge: 'You already have your SIM',
+      title: 'Activate your line\nand get in the game',
+      subtitle:
+        'Pick your plan, register your Gamership Mobile SIM and you are connected in minutes. No lines, no endless contracts, and quality data.',
+      primary: 'Activate your line',
+      secondary: 'How do I activate my SIM?',
+      meta1: 'Have your ICCID ready',
+      meta2: 'Active in 5 minutes',
+      meta3: 'Wi-Fi required',
+    },
     recargas: {
       title: 'Recharges',
       label: 'Loot',
-      cta: 'Top up',
+      cta: 'Top Up Now!',
       validity: '30-day validity',
       shareData: 'Share Data',
       speed: 'Data At Full Speed',
@@ -447,9 +469,9 @@ export const landing = {
         name: 'LOOT 2GB',
         desc: 'The emergency patch. 2 GB for that moment when your plan tapped out and the month still had some fight left in it.\n\nEnough to stay in the match without admitting out loud that you burned through it early.\n\nValid 30 days, fits any plan.',
       },
-      loot4: {
-        name: 'LOOT 4GB',
-        desc: 'For the one who swore 4 extra GB were unnecessary… and here you are, reading this.\n\n4 GB to close out the month with your head high and without begging for the neighbor\'s WiFi.\n\nValid 30 days, adds to whatever you already have.',
+      loot12: {
+        name: 'LOOT 12GB',
+        desc: 'The full haul. 12 GB for the player who never wants to think about their data counter again.\n\nDownloads, long sessions and streaming without rationing anything until the month is out.\n\nValid 30 days, stacks on top of whatever you already have.',
       },
       loot5: {
         name: 'LOOT 5GB',

@@ -888,8 +888,10 @@ type Recarga = { key: string; id: string; gb: string; price: string }
 
 const RECARGAS: Recarga[] = [
   { key: 'loot2', id: 'Gamership_Data_Loot_2GB', gb: '2GB', price: '79.00' },
-  { key: 'loot4', id: 'Gamership_Data_Loot_4GB', gb: '4GB', price: '149.00' },
   { key: 'loot5', id: 'Gamership_Data_Loot_5GB', gb: '5GB', price: '179.00' },
+  // TODO(verificar): `id` sin confirmar contra la API (estaba en 503 al hacer el
+  // cambio). Si el PackagesId real difiere, la compra falla en silencio.
+  { key: 'loot12', id: 'Gamership_Data_Loot_12GB', gb: '12GB', price: '389.00' },
 ]
 
 /* Icons size to their wrapper (h-full/w-full) and inherit its color, so each
@@ -1047,7 +1049,7 @@ function RecargaCard({ recarga, index }: { recarga: Recarga; index: number }) {
 
 /* Voice top-up — wide card under the Loot grid, same X-axis flip as BASIC.
    `id` is the API's PackagesId, which is what the dashboard matches on. */
-const VOICE_RECARGA = { id: 'Gamership_Recarga_Voz_500_MUC', minutes: '500', price: '50.00' }
+const VOICE_RECARGA = { id: 'Gamership_Recarga_Voz_500_MUC', minutes: '500', price: '99.00' }
 
 function VoiceRecargaCard() {
   const { t } = useTranslation('landing')
@@ -1140,6 +1142,81 @@ function VoiceRecargaCard() {
         </div>
       </div>
     </motion.div>
+  )
+}
+
+/* CTA "Activa tu línea" — mounted on the landing, between plans and ecosystem. */
+function ActivateLineCTA() {
+  const { t } = useTranslation('landing')
+
+  return (
+    <section
+      className="relative overflow-hidden text-white"
+      style={{ background: 'radial-gradient(120% 160% at 20% 0%, #8224e3 0%, #5518c1 45%, #2d0a63 100%)' }}
+    >
+      <div
+        className="relative mx-auto grid max-w-[1280px] grid-cols-1 items-center gap-10 px-6 py-16 md:grid-cols-[1.35fr_1fr] md:gap-14 md:py-20"
+        style={{ fontFamily: 'var(--font-manrope)' }}
+      >
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="flex min-w-0 flex-col gap-4"
+        >
+          <span
+            className="self-start rounded-full bg-[#50fbd2] px-3.5 py-1.5 text-[13px] font-bold uppercase tracking-[0.14em] text-[#2d0a63]"
+            style={{ fontFamily: 'var(--font-rubik)' }}
+          >
+            {t('activateCta.badge')}
+          </span>
+
+          <h2
+            className="text-[34px] font-black uppercase leading-none tracking-tight whitespace-pre-line md:text-[52px]"
+            style={{ fontFamily: 'var(--font-rubik)' }}
+          >
+            {t('activateCta.title')}
+          </h2>
+
+          <p className="max-w-[54ch] text-[16px] leading-relaxed text-white/85 md:text-[17px]">
+            {t('activateCta.subtitle')}
+          </p>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.15 }}
+          className="flex min-w-0 flex-col gap-3.5"
+        >
+          <a
+            href="/vincula-tu-linea/registro"
+            className="inline-flex h-14 items-center justify-center rounded-full bg-[#50fbd2] px-7 text-[17px] font-bold text-[#00010a] transition-all duration-200 hover:scale-[1.02] hover:bg-[#3ee0ba] active:scale-95"
+            style={{ fontFamily: 'var(--font-rubik)' }}
+          >
+            {t('activateCta.primary')}
+          </a>
+
+          <a
+            href="/atencion"
+            className="inline-flex h-[52px] items-center justify-center rounded-full border-[1.5px] border-white/55 px-6 text-[16px] font-bold text-white transition-all duration-200 hover:bg-white/10 active:scale-95"
+            style={{ fontFamily: 'var(--font-rubik)' }}
+          >
+            {t('activateCta.secondary')}
+          </a>
+
+          <div className="mt-1 flex flex-wrap items-center gap-x-4 gap-y-2 text-[14px] font-medium text-white/80">
+            <span>{t('activateCta.meta1')}</span>
+            <span aria-hidden="true" className="h-[5px] w-[5px] rounded-full bg-[#50fbd2]" />
+            <span>{t('activateCta.meta2')}</span>
+            <span aria-hidden="true" className="h-[5px] w-[5px] rounded-full bg-[#50fbd2]" />
+            <span>{t('activateCta.meta3')}</span>
+          </div>
+        </motion.div>
+      </div>
+    </section>
   )
 }
 
@@ -2544,6 +2621,7 @@ function LandingPage() {
       <HeroSection />
       <WhyChooseSection />
       <PlansSection />
+      <ActivateLineCTA />
       <EcosystemSection />
     </main>
   )
