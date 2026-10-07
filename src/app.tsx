@@ -882,16 +882,16 @@ function EcosystemSection() {
 /* ============================================================
    RECARGAS PAGE (independent route — not part of LandingPage)
    ============================================================ */
-// `id` must match the API's `PackagesId` exactly (not `IdPackage`): the
-// dashboard looks the package up with `pkgs.find(p => p.PackagesId === pkg)`.
+// `id` must be an existing `PackagesId` (not `IdPackage`). Either the prepay or
+// the postpay variant works: the dashboard swaps it for the same-named variant
+// that matches the buyer's line, and rejects products the line can't take.
 type Recarga = { key: string; id: string; gb: string; price: string }
 
 const RECARGAS: Recarga[] = [
   { key: 'loot2', id: 'Gamership_Data_Loot_2GB', gb: '2GB', price: '79.00' },
   { key: 'loot5', id: 'Gamership_Data_Loot_5GB', gb: '5GB', price: '179.00' },
-  // TODO(verificar): `id` sin confirmar contra la API (estaba en 503 al hacer el
-  // cambio). Si el PackagesId real difiere, la compra falla en silencio.
-  { key: 'loot12', id: 'Gamership_Data_Loot_12GB', gb: '12GB', price: '389.00' },
+  // Only sold to prepay lines; Gamership named it "Data Loot - 12GB" but its id says 11GB.
+  { key: 'loot12', id: 'Gamership_Data_Loot_11GB_Prepay', gb: '12GB', price: '389.00' },
 ]
 
 /* Icons size to their wrapper (h-full/w-full) and inherit its color, so each
